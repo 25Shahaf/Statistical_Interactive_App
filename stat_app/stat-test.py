@@ -1,7 +1,6 @@
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
-from IPython.core.pylabtools import figsize
 from matplotlib_venn import venn2, venn2_circles, venn3
 import matplotlib.patches as mpatches
 
