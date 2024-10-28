@@ -9,7 +9,7 @@ from scipy.stats import alpha
 def app():
     st.write("# Basic Definitions of Probability")
 
-    st.write(r"## $P(A \cap B) + P(A \cap \overline{B}) = P(A)$")
+    st.write(r"### $P(A \cap B) + P(A \cap \overline{B}) = P(A)$")
     # Set up the figure and axes
     fig, ax = plt.subplots(figsize=(10, 3))
     plt.axis('off')

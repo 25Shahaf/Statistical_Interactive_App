@@ -19,7 +19,8 @@ def login():
         return  # Return early if already authenticated
 
     # Create a text input for the password
-    password = st.text_input("Enter password", type="password", key="password_input")
+    st.write("### Welcome to the Statistical Visualizations App!")
+    password = st.text_input("Please enter the password to access the app:", type="password", key="password_input")
 
     # Check if the button is clicked
     if st.button("Submit"):
@@ -32,7 +33,7 @@ def login():
 
 
 if st.session_state['authenticated']:
-    st.markdown("<h1 style='font-size: 52px; font-weight: bold; color: #139dd1;'>🔢 Statistical Visualizations</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='font-size: 50px; font-weight: bold; color: #139dd1;'>🔢 Statistical Visualizations</h1>", unsafe_allow_html=True)
 
     # Sidebar for navigation
     section = st.sidebar.radio("Select a Concept", ["Basic Terms", "Basic Definitions", "Conditional Probability",
@@ -56,4 +57,4 @@ if st.session_state['authenticated']:
 
 else:
     login()
-    st.write("Please enter the password to access the app.")
+    #st.write("Please enter the password to access the app.")
