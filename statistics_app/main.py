@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 from matplotlib_venn import venn2, venn2_circles, venn3
 import matplotlib.patches as mpatches
 from scipy.stats import alpha
-from pages import basic_terms, basic_definitions, conditional_probability, normal_distribution
+from concepts import basic_terms, basic_definitions, conditional_probability, normal_distribution
 
 # Set the password for the app
 PASSWORD = "BGU123"
