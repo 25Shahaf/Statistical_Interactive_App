@@ -7,7 +7,6 @@
     <list default="true" id="501b7ec2-0177-4caf-983f-8925df028571" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/statistics_app/concepts/basic_definitions.py" beforeDir="false" afterPath="$PROJECT_DIR$/statistics_app/concepts/basic_definitions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/statistics_app/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/statistics_app/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,23 +32,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.basic_definitions.executor": "Run",
-    "Python.conditional_probability.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.stat-test.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "G:/My Drive/University/M.Sc_ME/streamlit/statistics_app",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.basic_definitions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.conditional_probability.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.stat-test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;G:/My Drive/University/M.Sc_ME/streamlit/statistics_app&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="G:\My Drive\University\M.Sc_ME\streamlit\statistics_app" />
@@ -73,7 +72,8 @@
       <updated>1727720262359</updated>
       <workItem from="1727720269207" duration="378000" />
       <workItem from="1730120027206" duration="463000" />
-      <workItem from="1730120511022" duration="8604000" />
+      <workItem from="1730120511022" duration="10766000" />
+      <workItem from="1730365643825" duration="3544000" />
     </task>
     <servers />
   </component>
@@ -82,8 +82,8 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/streamlit$conditional_probability.coverage" NAME="conditional_probability Coverage Results" MODIFIED="1730125455367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/statistics_app/pages" />
-    <SUITE FILE_PATH="coverage/streamlit$main.coverage" NAME="main Coverage Results" MODIFIED="1730129596081" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/statistics_app" />
-    <SUITE FILE_PATH="coverage/streamlit$basic_definitions.coverage" NAME="basic_definitions Coverage Results" MODIFIED="1730129280539" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/statistics_app/concepts" />
+    <SUITE FILE_PATH="coverage/streamlit$main.coverage" NAME="main Coverage Results" MODIFIED="1730366096464" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/statistics_app" />
+    <SUITE FILE_PATH="coverage/streamlit$basic_definitions.coverage" NAME="basic_definitions Coverage Results" MODIFIED="1730369319309" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/statistics_app/concepts" />
     <SUITE FILE_PATH="coverage/streamlit$stat_test.coverage" NAME="stat-test Coverage Results" MODIFIED="1730120047494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/stat_app" />
   </component>
 </project>
