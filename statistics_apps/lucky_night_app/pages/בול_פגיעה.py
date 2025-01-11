@@ -109,6 +109,9 @@ def draw_target(radius_a, radius_b, radius_c=1, throws=None, figsize=(2.5, 2.5))
     ax.grid(False)
     ax.axis('off')
 
+    fig.patch.set_facecolor('none')  # Make the background transparent
+    fig.patch.set_edgecolor('none')  # Remove the edge color
+
     return fig
 
 
