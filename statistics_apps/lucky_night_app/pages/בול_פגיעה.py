@@ -26,7 +26,7 @@ st.markdown("""
         }
         .game-explanation {
             background-color: #eefafd;
-            text-color: #000000 !important;
+            color: black !important;
             padding: 1.5rem;
             border-radius: 10px;
             margin: 1rem 0;
