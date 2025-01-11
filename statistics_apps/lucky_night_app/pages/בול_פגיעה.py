@@ -20,6 +20,7 @@ st.markdown("""
         }
         .section-header {
             background-color: #e0e5eb;
+            color: black !important;
             padding: 0.1rem;
             border-radius: 10px;
             margin: 2rem 0 1rem 0;
@@ -34,12 +35,14 @@ st.markdown("""
         }
         .game-explanation-header {
             background-color: #eefafd;
+            color: black !important;
             padding: 0.3rem;
             border-radius: 10px;
             margin: 1rem 0;
         }
         .theory-section {
             background-color: #fdf5f8;
+            color: black !important;
             padding: 1.5rem;
             border-radius: 10px;
             margin: 1rem 0;
@@ -47,6 +50,7 @@ st.markdown("""
         }
         .practice-section {
             background-color: #ebfaf1;
+            color: black !important;
             padding: 1.5rem;
             border-radius: 10px;
             margin: 1rem 0;
@@ -54,6 +58,7 @@ st.markdown("""
         }
         .question-box {
             background-color: white;
+            color: black !important;
             padding: 1.5rem;
             border-radius: 10px;
             margin: 1rem 0;
