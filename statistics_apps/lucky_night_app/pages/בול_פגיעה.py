@@ -7,6 +7,9 @@ import math
 # --- עיצוב ותמיכה ב-RTL ---
 st.markdown("""
     <style>
+        h1, h2, h3, h4, h5, h6 {
+            color: black !important;
+        }
         :root {
             --background-color: #ffffff !important; /* Bright background */
             --text-color: #000000 !important;      /* Dark text */
@@ -87,9 +90,9 @@ def calculate_radii_from_percentages(percent_a, percent_b):
 def draw_target(radius_a, radius_b, radius_c=1, throws=None, figsize=(2.5, 2.5)):  # הקטנת גודל המטרה
     fig, ax = plt.subplots(figsize=figsize)
 
-    circle_c = Circle((0, 0), radius_c, color='lightgray', alpha=0.3)
-    circle_b = Circle((0, 0), radius_b, color='lightblue', alpha=0.3)
-    circle_a = Circle((0, 0), radius_a, color='pink', alpha=0.3)
+    circle_c = Circle((0, 0), radius_c, color='lightgray', alpha=0.8)
+    circle_b = Circle((0, 0), radius_b, color='lightblue', alpha=0.8)
+    circle_a = Circle((0, 0), radius_a, color='pink', alpha=0.8)
 
     ax.add_patch(circle_c)
     ax.add_patch(circle_b)
