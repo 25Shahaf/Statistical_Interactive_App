@@ -30,6 +30,7 @@ def setup_page():
             .css-1n76uvr {
                 font-family: 'Rubik', sans-serif;
                 font-size: 1.1rem !important;
+                color: black !important;
                 padding: 0.8rem 0.5rem !important;
                 border-radius: 8px;
                 transition: all 0.2s ease;
@@ -38,6 +39,7 @@ def setup_page():
             /* Highlight active page */
             .css-1n76uvr[aria-selected="true"] {
                 background-color: #d4ebf2 !important;
+                color: black !important;
                 border-left: 4px solid #2e86c1;
                 font-weight: 500;
             }
