@@ -4,8 +4,6 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 import math
 import time
-import pandas as pd
-import seaborn as sns
 
 from utils.helper_functions import setup_page
 
