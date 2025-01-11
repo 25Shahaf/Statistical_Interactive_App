@@ -36,11 +36,11 @@ def main():
         * והכי חשוב - תהנו בדרך! 🎪
         """)
     with col3:
-        image = Image.open('casino.png')
-        new_width = int(image.width * 0.4)
-        new_height = int(image.height * 0.4)
-        image = image.resize((new_width, new_height))
-        st.image(image)
+        #image = Image.open('casino.png')
+        #new_width = int(image.width * 0.4)
+        #new_height = int(image.height * 0.4)
+        #image = image.resize((new_width, new_height))
+        #st.image(image)
 
 
 if __name__ == "__main__":
