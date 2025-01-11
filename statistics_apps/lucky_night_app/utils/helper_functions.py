@@ -8,7 +8,6 @@ This module contains helper functions that are used across multiple pages.
 Set up the page with custom CSS styles.
 """
 def setup_page():
-    # Add RTL support
     st.markdown("""
         <style>
             @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600&display=swap');
@@ -53,7 +52,7 @@ def setup_page():
                 font-family: 'Rubik', sans-serif;
                 font-size: 1.3rem;
                 font-weight: 600;
-                color: #2c3e50;
+                color: black;
                 padding: 1rem 0.5rem;
                 border-bottom: 2px solid #bde0ec;
                 margin-bottom: 1rem;
@@ -68,6 +67,80 @@ def setup_page():
             .main > div {
                 padding-right: 80px;
                 padding-left: 20px;
+            }
+                    h1, h2, h3, h4, h5, h6 {
+            color: black !important;
+            }
+            /* Adjust padding */
+            .css-18e3th9 {padding: 6rem;
+            } 
+            .css-1y4p8pa {
+            max-width: 100rem;
+            }
+            .section-header {
+                background-color: #e0e5eb;
+                color: black !important;
+                padding: 0.1rem;
+                border-radius: 10px;
+                margin: 2rem 0 1rem 0;
+            }
+            .top-header {
+                background-color: rgba(236, 249, 252, 0.8);
+                color: black !important;
+                padding: 0.1rem;
+                border-radius: 10px;
+                margin: 2rem 0 1rem 0;
+                text-align: center;
+            }
+            .game-explanation {
+                background-color: #eefafd;
+                color: black !important;
+                padding: 1.5rem;
+                border-radius: 10px;
+                margin: 1rem 0;
+                border-right: 5px solid #83b0bb;
+            }
+            .game-explanation-header {
+                background-color: #eefafd;
+                color: black !important;
+                padding: 0.3rem;
+                border-radius: 10px;
+                margin: 1rem 0;
+            }
+            .theory-section {
+                background-color: #fdf5f8;
+                color: black !important;
+                padding: 1.5rem;
+                border-radius: 10px;
+                margin: 1rem 0;
+                border-right: 5px solid #c8a2ae;
+            }
+            .practice-section {
+                background-color: #ebfaf1;
+                color: black !important;
+                padding: 1.5rem;
+                border-radius: 10px;
+                margin: 1rem 0;
+                border-right: 5px solid #83bb9a;
+            }
+            .question-box {
+                background-color: white;
+                color: black !important;
+                padding: 1.5rem;
+                border-radius: 10px;
+                margin: 1rem 0;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                border: 1px solid #ddd;
+            }
+            .stButton>button {
+                margin: 10px 0;
+            }
+            .custom-columns {
+                display: flex;
+                gap: 2rem;
+            .custom-image {
+                height: 150px; /* Set desired height */
+                object-fit: cover; /* Ensures the image fits nicely */
             }
         </style>
     """, unsafe_allow_html=True)
