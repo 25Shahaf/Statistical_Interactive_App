@@ -18,7 +18,7 @@ def main():
     #st.title(" 🎲 ליל המזל הגדול! 🎲")
     st.markdown('<div class="top-header"><h1>🎲 ליל המזל הגדול! 🎲</h1></div>', unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns([1, 5, 1])
+    col1, col2, col3 = st.columns([1, 4, 1])
 
     with col2:
         # Get the directory where your script is located
