@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 from PIL import Image
 
 import numpy as np
@@ -20,7 +21,12 @@ def main():
     col1, col2, col3 = st.columns([1, 3, 1])
 
     with col2:
-        st.image('home_page.png', use_container_width=True)
+        # Get the directory where your script is located
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        image_path = os.path.join(current_dir, 'home_page.png')
+
+        # Use the full path in st.image
+        st.image(image_path)
 
 
 
