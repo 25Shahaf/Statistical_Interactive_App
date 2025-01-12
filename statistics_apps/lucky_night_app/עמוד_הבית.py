@@ -18,12 +18,12 @@ def main():
     #st.title(" 🎲 ליל המזל הגדול! 🎲")
     st.markdown('<div class="top-header"><h1>🎲 ליל המזל הגדול! 🎲</h1></div>', unsafe_allow_html=True)
 
-    col1, col2, col3 = st.columns([1, 3, 1])
+    col1, col2, col3 = st.columns([1, 5, 1])
 
     with col2:
         # Get the directory where your script is located
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        image_path = os.path.join(current_dir, 'home_page.png')
+        image_path = os.path.join(current_dir, 'home_page_intro.png')
 
         # Use the full path in st.image
         st.image(image_path)
