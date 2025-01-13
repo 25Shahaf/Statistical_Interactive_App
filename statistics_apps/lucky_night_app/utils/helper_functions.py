@@ -24,6 +24,7 @@ def setup_page():
             /* Style sidebar content */
             section[data-testid="stSidebar"] .css-1d391kg {
                 padding-top: 2rem;
+                color: black !important;
             }
 
             /* Style navigation links */
@@ -148,7 +149,7 @@ def setup_page():
     """, unsafe_allow_html=True)
 
 def under_development_page():
-    col1, col2 = st.columns([1, 5])
+    col1, col2 = st.columns([1, 4])
 
     with col1:
         st.markdown('<div class="section-header"><h2>🚧 בפיתוח</h2></div>', unsafe_allow_html=True)

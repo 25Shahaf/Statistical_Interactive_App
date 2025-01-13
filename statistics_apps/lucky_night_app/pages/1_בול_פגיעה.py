@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 import math
+import os
 from utils.helper_functions import setup_page
 
 # --- Helper Functions ---
@@ -65,8 +66,22 @@ def simulate_throws(n_throws, radius_a, radius_b):
     return throws, hits
 
 
-# --- Page Contenct ---
+# --- Page Content ---
 setup_page()
+
+# -- Sidebar --
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+logo_path = os.path.join(current_dir, 'bgu_logo.png')
+st.sidebar.image(logo_path)
+st.sidebar.markdown("""
+
+        <div style="text-align: center;">
+            <h3>שיטות סטטיסטיות בהנדסה</h3>
+            <h4>362.1.3071</h4>
+        </div>
+    """, unsafe_allow_html=True)
+
 st.markdown('<div class="top-header"><h1>🎯 בול פגיעה 🎯</h1></div>', unsafe_allow_html=True)
 
 # --- game explanation ---
