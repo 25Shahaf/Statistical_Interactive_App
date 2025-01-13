@@ -148,5 +148,8 @@ def setup_page():
     """, unsafe_allow_html=True)
 
 def under_development_page():
-    st.title("🚧 בפיתוח")
-    st.write("עמוד זה עדיין בפיתוח. בקרוב יהיה זמין!")
+    col1, col2 = st.columns([1, 5])
+
+    with col1:
+        st.markdown('<div class="section-header"><h2>🚧 בפיתוח</h2></div>', unsafe_allow_html=True)
+        st.write("עמוד זה עדיין בפיתוח. בקרוב יהיה זמין!")
