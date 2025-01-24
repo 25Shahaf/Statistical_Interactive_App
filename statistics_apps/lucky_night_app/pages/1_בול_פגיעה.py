@@ -13,7 +13,7 @@ def calculate_radii_from_percentages(percent_a, percent_b):
     return radius_a, radius_b
 
 
-def draw_target(radius_a, radius_b, radius_c=1, throws=None, figsize=(2, 2)):
+def draw_target(radius_a, radius_b, radius_c=1, throws=None, figsize=(2, 2), show_square=False):
     fig, ax = plt.subplots(figsize=figsize)
 
     circle_c = Circle((0, 0), radius_c, color='lightgray', alpha=0.8)
@@ -27,6 +27,13 @@ def draw_target(radius_a, radius_b, radius_c=1, throws=None, figsize=(2, 2)):
     plt.text(0, 0, 'A', horizontalalignment='center', verticalalignment='center')
     plt.text(radius_a + (radius_b - radius_a) / 2, 0, 'B', horizontalalignment='center')
     plt.text(radius_b + (radius_c - radius_b) / 2, 0, 'C', horizontalalignment='center')
+
+    if show_square:
+        side = radius_c * np.sqrt(2)
+        half_side = side / 2
+        square = plt.Rectangle((-half_side, -half_side), side, side,
+                             fill=False, color='red', linestyle='--')
+        ax.add_patch(square)
 
     if throws is not None:
         for x, y in throws:
@@ -82,10 +89,10 @@ st.sidebar.markdown("""
         </div>
     """, unsafe_allow_html=True)
 
-st.markdown('<div class="top-header"><h1>🎯 בול פגיעה 🎯</h1></div>', unsafe_allow_html=True)
+st.markdown('<div class="top-header"><h1>בול פגיעה 🎯</h1></div>', unsafe_allow_html=True)
 
 # --- game explanation ---
-st.markdown('<div class="section-header"><h2>🎮 הסבר המשחק</h2></div>', unsafe_allow_html=True)
+st.markdown('<div class="section-header"><h2>🎮 המשחק</h2></div>', unsafe_allow_html=True)
 
 col1, col2 = st.columns([2, 1])
 
@@ -113,7 +120,7 @@ with col1:
     """, unsafe_allow_html=True)
 
 with col2:
-    radius_a, radius_b = calculate_radii_from_percentages(25, 40)
+    radius_a, radius_b = calculate_radii_from_percentages(15, 40)
     fig = draw_target(radius_a, radius_b)
     st.pyplot(fig)
 
@@ -124,9 +131,9 @@ col1, col2 = st.columns([3, 2])
 with col1:
     st.markdown('<div class="game-explanation-header"><h3>הכניסו גודל באחוזים לכל אזור:</h3></div>',
                 unsafe_allow_html=True)
-    percent_a = st.number_input("גודל אזור A:", 0, 100, 25)
-    percent_b = st.number_input("גודל אזור B:", 0, 100, 40)
-    percent_c = st.number_input("גודל אזור C:", 0, 100, 35)
+    percent_a = st.number_input("גודל אזור A:", 0, 100, 15)
+    percent_b = st.number_input("גודל אזור B:", 0, 100, 35)
+    percent_c = st.number_input("גודל אזור C:", 0, 100, 50)
 
 
     total_percent = percent_a + percent_b + percent_c
@@ -234,7 +241,7 @@ with col1:
         key="q1"
     )
 
-    if st.button("בדוק תשובה", key="check1"):
+    if st.button("בדיקת תשובה", key="check1"):
         correct_answer = 4.76
         if user_answer1 == correct_answer:
             st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer}%. \n"
@@ -259,7 +266,7 @@ with col1:
         key="q2"
     )
 
-    if st.button("בדוק תשובה", key="check2"):
+    if st.button("בדיקת תשובה", key="check2"):
         correct_answer = 42.55
         if user_answer2 == correct_answer:
             st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.1f}%. \n"
@@ -284,12 +291,12 @@ with col1:
         key="q3"
     )
 
-    if st.button("בדוק תשובה", key="check3"):
+    if st.button("בדיקת תשובה", key="check3"):
         correct_answer = 16
         if user_answer3 == correct_answer:
             col1, col2 = st.columns(2)
             with col1:
-                st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.1f}%. \n"
+                st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.0f}%. \n"
                            "\n"
                            f"**הסבר:** כאשר ידוע שהחץ פגע באזור A או B, מרחב המדגם מצטמצם לאזורים A ו-B בלבד ולכן ההסתברות לפגיעה באזור A משתנה. חלוקה בין שטח אזור A לסכום השטחים של אזור A ו-B (מרחב המדגם החדש) מניבה את התוצאה הנכונה.")
             with col2:
@@ -297,5 +304,40 @@ with col1:
                     radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
                     fig_reduced = draw_target(radius_a_default, radius_b_default, radius_c=radius_b_default)
                     st.pyplot(fig_reduced)
+        else:
+            st.error("לא מדויק. נסו שוב!")
+
+    # Question 4
+    st.markdown("""
+        <div class='question-box'>
+        <h3>שאלה 4️⃣</h3>
+        כעת, מגבילים את אזור הפגיעה לכדי ריבוע שכל קודקודיו משיקים למעגל חיצוני.
+        \n
+        מה ההסתברות לפגוע באזור A?
+        </div>
+    """, unsafe_allow_html=True)
+
+    user_answer4 = st.number_input(
+        "הכניסו את תשובתכם באחוזים:",
+        min_value=0.0,
+        max_value=100.0,
+        step=0.1,
+        key="q4"
+    )
+
+    if st.button("בדיקת תשובה", key="check4"):
+        correct_answer = 5.76  # (12/50)^2 * 100
+        if abs(user_answer4 - correct_answer) < 0.1:
+            col1, col2 = st.columns(2)
+            with col1:
+                st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.2f}%. \n"
+                           "\n"
+                           f"**הסבר:** כאשר הריבוע משיק למעגל החיצוני, צלע הריבוע שווה לרדיוס המעגל החיצוני כפול √2. "
+                           f"היחס בין שטח מעגל A לשטח הריבוע הוא (12/50)². "
+                           f"לכן ההסתברות לפגוע באזור A היא 5.76%.")
+            with col2:
+                radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
+                fig_reduced = draw_target(radius_a_default, radius_b_default, show_square=True)
+                st.pyplot(fig_reduced)
         else:
             st.error("לא מדויק. נסו שוב!")
