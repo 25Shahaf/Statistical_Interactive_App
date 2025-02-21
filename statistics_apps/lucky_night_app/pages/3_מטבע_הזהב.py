@@ -6,6 +6,7 @@ import math
 import os
 from utils.helper_functions import setup_page, under_development_page
 
+st.set_page_config(layout="wide")
 setup_page()
 under_development_page()
 

@@ -33,7 +33,7 @@ def main():
     col1, col2, col3 = st.columns([1, 4, 1])
 
     with col2:
-        image_path = os.path.join(current_dir, 'home_page_intro.png')
+        image_path = os.path.join(current_dir, 'home_page_introduction.png')
 
         st.image(image_path)
 

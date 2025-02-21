@@ -19,6 +19,7 @@ def setup_page():
             /* Style the sidebar */
             section[data-testid="stSidebar"] {
                 background-color: #f0f8ff;  /* תכלת בהיר */
+                color: black !important;
             }
 
             /* Style sidebar content */
@@ -48,6 +49,7 @@ def setup_page():
             /* Hover effect on navigation links */
             .css-1n76uvr:hover {
                 background-color: #e1f1f7 !important;
+                color: black !important;
             }
 
             /* Style sidebar header */
@@ -55,7 +57,7 @@ def setup_page():
                 font-family: 'Rubik', sans-serif;
                 font-size: 1.3rem;
                 font-weight: 600;
-                color: black;
+                color: black !important;
                 padding: 1rem 0.5rem;
                 border-bottom: 2px solid #bde0ec;
                 margin-bottom: 1rem;
