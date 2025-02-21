@@ -74,6 +74,7 @@ def simulate_throws(n_throws, radius_a, radius_b):
 
 
 # --- Page Content ---
+st.set_page_config(layout="wide")
 setup_page()
 
 # -- Sidebar --

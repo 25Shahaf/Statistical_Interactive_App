@@ -81,6 +81,7 @@ def calculate_success_rate(history):
     }
 
 # --- Page Content ---
+st.set_page_config(layout="wide")
 setup_page()
 
 # -- Sidebar --
@@ -164,10 +165,10 @@ with col1:
         # Display current roll with dice visualization
         col_dice1, col_dice2, col_result = st.columns([1, 1, 2])
         with col_dice1:
-            st.markdown(f"### קובייה 1️⃣")
+            st.markdown('קובייה 1️⃣', unsafe_allow_html=True)
             st.markdown(create_dice_svg(dice1), unsafe_allow_html=True)
         with col_dice2:
-            st.markdown(f"### קובייה 2️⃣")
+            st.markdown("קובייה 2️⃣")
             st.markdown(create_dice_svg(dice2), unsafe_allow_html=True)
 
         with col_result:
@@ -177,7 +178,9 @@ with col1:
                           border-radius: 10px; 
                           margin-top: 20px;
                           opacity: 0.8;
-                          color: black;'>
+                          color: black;
+                          text-align: center;
+                          font-size: 1.2em;'>
                 <h4>תוצאת ההטלה:</h4>
                 סכום: {sum_dice}<br>
                 {" 🎉 מספר מזל! " if is_lucky else " לא מספר מזל... "}
@@ -185,7 +188,7 @@ with col1:
             """, unsafe_allow_html=True)
 
         # Display score
-        st.markdown(f"### ניקוד מצטבר: {st.session_state.score}")
+        st.markdown(f"ניקוד מצטבר: {st.session_state.score}")
 
     # Display roll distribution chart
     if st.session_state.game_history:
@@ -194,7 +197,7 @@ with col1:
 
         # Display roll distribution chart
         with col_hist:
-            st.markdown("### התפלגות התוצאות")
+            st.markdown("התפלגות התוצאות:")
             sums, counts = calculate_roll_distribution(st.session_state.game_history)
 
             fig = go.Figure(data=[
@@ -214,12 +217,12 @@ with col1:
             st.plotly_chart(fig, use_container_width=True)
 
         with col_pie:
-            st.markdown("### אחוזי הצלחה מצטברים")
             success_data = calculate_success_rate(st.session_state.game_history)
 
             # Create success rate display
             st.markdown(f"""
                 <div style='background-color: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;'>
+                <h4>אחוזי הצלחה מצטברים:</h4>
                     <div style='font-size: 1.2em; margin: 10px 0; color: black;'>
                         🏅 הצלחה: {success_data['הצלחה']}%
                     </div>
@@ -233,7 +236,8 @@ with col1:
 
             # Display history table with colored rows
             if st.session_state.game_history:
-                st.markdown("### היסטוריית הטלות אחרונות")
+                st.markdown("\n")
+                st.markdown("היסטוריית הטלות אחרונות")
 
                 # Get last 10 rolls (reversed to show newest first)
                 last_10_rolls = list(reversed(st.session_state.game_history[-10:]))
