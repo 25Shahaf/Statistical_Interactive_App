@@ -120,7 +120,7 @@ with col1:
     """, unsafe_allow_html=True)
 
 # --- game-zone ---
-col1, col2 = st.columns([4, 2])
+col1, col2 = st.columns([4, 1])
 
 with col1:
     #st.markdown('<div class="section-header"><h3>🎲 אזור המשחק</h3></div>', unsafe_allow_html=True)
@@ -176,7 +176,8 @@ with col1:
                           padding: 20px; 
                           border-radius: 10px; 
                           margin-top: 20px;
-                          opacity: 0.8;'>
+                          opacity: 0.8;
+                          color: black;'>
                 <h4>תוצאת ההטלה:</h4>
                 סכום: {sum_dice}<br>
                 {" 🎉 מספר מזל! " if is_lucky else " לא מספר מזל... "}
@@ -206,7 +207,7 @@ with col1:
                 showlegend=False,
                 height=400,
                 yaxis=dict(
-                    dtick=1  # Set y-axis tick interval to 1
+                dtick=1  # Set y-axis tick interval to 1
                 )
             )
 
