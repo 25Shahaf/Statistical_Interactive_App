@@ -220,10 +220,10 @@ with col1:
             # Create success rate display
             st.markdown(f"""
                 <div style='background-color: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;'>
-                    <div style='font-size: 1.2em; margin: 10px 0;'>
+                    <div style='font-size: 1.2em; margin: 10px 0; color: black;'>
                         🏅 הצלחה: {success_data['הצלחה']}%
                     </div>
-                    <div style='font-size: 1.2em; margin: 10px 0;'>
+                    <div style='font-size: 1.2em; margin: 10px 0; color: black;'>
                         ❌ כישלון: {success_data['כישלון']}%
                     </div>
                     <div style='font-size: 0.9em; color: #666; margin-top: 10px;'>
