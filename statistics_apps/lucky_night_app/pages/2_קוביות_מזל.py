@@ -120,7 +120,7 @@ with col1:
     """, unsafe_allow_html=True)
 
 # --- game-zone ---
-col1, col2 = st.columns([3, 2])
+col1, col2 = st.columns([4, 2])
 
 with col1:
     #st.markdown('<div class="section-header"><h3>🎲 אזור המשחק</h3></div>', unsafe_allow_html=True)
