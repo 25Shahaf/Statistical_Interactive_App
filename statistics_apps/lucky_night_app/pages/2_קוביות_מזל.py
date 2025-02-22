@@ -190,80 +190,83 @@ with col1:
         # Display score
         st.markdown(f"ניקוד מצטבר: {st.session_state.score}")
 
-    # Display roll distribution chart
-    if st.session_state.game_history:
-        # Create two columns for the charts
-        col_hist, col_pie = st.columns(2)
-
         # Display roll distribution chart
-        with col_hist:
-            st.markdown("התפלגות התוצאות:")
-            sums, counts = calculate_roll_distribution(st.session_state.game_history)
+        if st.session_state.game_history:
+            # Create two columns for the charts
+            col_hist, col_pie = st.columns(2)
 
-            fig = go.Figure(data=[
-                go.Bar(x=[str(x) for x in sums], y=counts)
-            ])
+            # Display roll distribution chart
+            with col_hist:
+                st.markdown("התפלגות התוצאות:")
+                sums, counts = calculate_roll_distribution(st.session_state.game_history)
 
-            fig.update_layout(
-                xaxis_title="סכום",
-                yaxis_title="מספר הופעות",
-                showlegend=False,
-                height=400,
-                yaxis=dict(
-                dtick=1  # Set y-axis tick interval to 1
+                fig = go.Figure(data=[
+                    go.Bar(x=[str(x) for x in sums], y=counts)
+                ])
+
+                fig.update_layout(
+                    xaxis_title="סכום",
+                    yaxis_title="מספר הופעות",
+                    showlegend=False,
+                    height=500,
+                    yaxis=dict(
+                    dtick=1  # Set y-axis tick interval to 1
+                    ),
+                    xaxis=dict(
+                    dtick=1  # Set x-axis tick interval to 1
+                    )
                 )
-            )
 
-            st.plotly_chart(fig, use_container_width=True)
+                st.plotly_chart(fig, use_container_width=True)
 
-        with col_pie:
-            success_data = calculate_success_rate(st.session_state.game_history)
+            with col_pie:
+                success_data = calculate_success_rate(st.session_state.game_history)
 
-            # Create success rate display
-            st.markdown(f"""
-                <div style='background-color: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;'>
-                <h4>אחוזי הצלחה מצטברים:</h4>
-                    <div style='font-size: 1.2em; margin: 10px 0; color: black;'>
-                        🏅 הצלחה: {success_data['הצלחה']}%
+                # Create success rate display
+                st.markdown(f"""
+                    <div style='background-color: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;'>
+                    <h4>אחוזי הצלחה מצטברים:</h4>
+                        <div style='font-size: 1.2em; margin: 10px 0; color: black;'>
+                            🏅 הצלחה: {success_data['הצלחה']}%
+                        </div>
+                        <div style='font-size: 1.2em; margin: 10px 0; color: black;'>
+                            ❌ כישלון: {success_data['כישלון']}%
+                        </div>
+                        <div style='font-size: 0.9em; color: #666; margin-top: 10px;'>
+                        </div>
                     </div>
-                    <div style='font-size: 1.2em; margin: 10px 0; color: black;'>
-                        ❌ כישלון: {success_data['כישלון']}%
-                    </div>
-                    <div style='font-size: 0.9em; color: #666; margin-top: 10px;'>
-                    </div>
-                </div>
-            """, unsafe_allow_html=True)
+                """, unsafe_allow_html=True)
 
-            # Display history table with colored rows
-            if st.session_state.game_history:
-                st.markdown("\n")
-                st.markdown("היסטוריית הטלות אחרונות")
+                # Display history table with colored rows
+                if st.session_state.game_history:
+                    st.markdown("\n")
+                    st.markdown("היסטוריית הטלות אחרונות")
 
-                # Get last 10 rolls (reversed to show newest first)
-                last_10_rolls = list(reversed(st.session_state.game_history[-10:]))
+                    # Get last 10 rolls (reversed to show newest first)
+                    last_10_rolls = list(reversed(st.session_state.game_history[-10:]))
 
-                # Create DataFrame with right-to-left column order
-                df = pd.DataFrame(last_10_rolls, index=None)
-                columns = ['מספר מזל', 'סכום', 'קובייה 2', 'קובייה 1', 'מספר הטלה']
-                df = df[columns]
+                    # Create DataFrame with right-to-left column order
+                    df = pd.DataFrame(last_10_rolls, index=None)
+                    columns = ['מספר מזל', 'סכום', 'קובייה 2', 'קובייה 1', 'מספר הטלה']
+                    df = df[columns]
 
 
-                # Style the DataFrame
-                def highlight_lucky(row):
-                    is_lucky = row['מספר מזל'] == 'כן'
-                    return [
-                        'background-color: rgba(212, 237, 218, 0.5)' if is_lucky else 'background-color: rgba(248, 215, 218, 0.5)'] * len(
-                        row)
+                    # Style the DataFrame
+                    def highlight_lucky(row):
+                        is_lucky = row['מספר מזל'] == 'כן'
+                        return [
+                            'background-color: rgba(212, 237, 218, 0.5)' if is_lucky else 'background-color: rgba(248, 215, 218, 0.5)'] * len(
+                            row)
 
 
-                styled_df = df.style.apply(highlight_lucky, axis=1).set_table_attributes('style="direction: rtl"')
+                    styled_df = df.style.apply(highlight_lucky, axis=1).set_table_attributes('style="direction: rtl"')
 
-                # Display DataFrame without index
-                st.dataframe(
-                    styled_df,
-                    use_container_width=True,
-                    hide_index=True
-                )
+                    # Display DataFrame without index
+                    st.dataframe(
+                        styled_df,
+                        use_container_width=True,
+                        hide_index=True
+                    )
 
 # --- Theory Section ---
 st.markdown('<div class="section-header"><h2>📚 רקע תיאורטי</h2></div>', unsafe_allow_html=True)
@@ -303,20 +306,20 @@ with col1:
 # --- Practice Section ---
 st.markdown('<div class="section-header"><h2>✍️ בואו נתרגל!</h2></div>', unsafe_allow_html=True)
 
-st.markdown(r"""
-    <div class='practice-section'>
-    בדיוק כמו במשחק, נתונות 2 קוביות סטנדרטיות עם 6 פאות.
-    
-    מספרי המזל הם 6 ו-9.
-
-    * את התשובות יש להזין בדיוק של 2 ספרות אחרי הנקודה.
-    </div>
-""", unsafe_allow_html=True)
-
 
 col1, col2 = st.columns(2)
 
 with col1:
+    st.markdown(r"""
+        <div class='practice-section'>
+        בדיוק כמו במשחק, נתונות 2 קוביות סטנדרטיות עם 6 פאות.
+
+        מספרי המזל הם 6 ו-9.
+
+        * את התשובות יש להזין בדיוק של 2 ספרות אחרי הנקודה.
+        </div>
+    """, unsafe_allow_html=True)
+
     # Question 1
     st.markdown("""
         <div class='question-box'>
