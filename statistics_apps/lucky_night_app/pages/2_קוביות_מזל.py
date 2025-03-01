@@ -197,7 +197,7 @@ with col1:
 
             # Display roll distribution chart
             with col_hist:
-                st.markdown("התפלגות התוצאות:")
+                #st.markdown("התפלגות התוצאות:")
                 sums, counts = calculate_roll_distribution(st.session_state.game_history)
 
                 fig = go.Figure(data=[
@@ -207,6 +207,7 @@ with col1:
                 fig.update_layout(
                     xaxis_title="סכום",
                     yaxis_title="מספר הופעות",
+                    title="                                                    :התפלגות התוצאות",
                     showlegend=False,
                     height=500,
                     yaxis=dict(
