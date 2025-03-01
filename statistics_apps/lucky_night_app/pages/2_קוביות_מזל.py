@@ -207,7 +207,7 @@ with col1:
                 fig.update_layout(
                     xaxis_title="סכום",
                     yaxis_title="מספר הופעות",
-                    title="                                                    :התפלגות התוצאות",
+                    title="                                                                           :התפלגות התוצאות",
                     showlegend=False,
                     height=500,
                     yaxis=dict(
