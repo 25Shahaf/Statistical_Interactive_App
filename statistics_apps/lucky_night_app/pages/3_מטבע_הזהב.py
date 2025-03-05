@@ -14,7 +14,7 @@ from utils.helper_functions import setup_page, under_development_page
 
 def reset_game():
     """Reset all game state variables."""
-    st.session_state.game_history = []
+    st.session_state.game_history_coin = []
     st.session_state.score = 0
     st.session_state.flip_count = 0
 
@@ -134,8 +134,8 @@ col1, col2 = st.columns([4, 1])
 
 with col1:
     # Initialize session state for game history and score
-    if 'game_history' not in st.session_state:
-        st.session_state.game_history = []
+    if 'game_history_coin' not in st.session_state:
+        st.session_state.game_history_coin = []
     if 'score' not in st.session_state:
         st.session_state.score = 0
     if 'flip_count' not in st.session_state:
@@ -170,7 +170,7 @@ with col1:
                 st.session_state.score += 1
 
             # Add flip to history
-            st.session_state.game_history.append({
+            st.session_state.game_history_coin.append({
                 'מספר הטלה': st.session_state.flip_count,
                 'תוצאה': coin  # Use coin directly since it's already the correct string
             })
@@ -181,7 +181,7 @@ with col1:
             st.markdown(create_coin_svg(coin), unsafe_allow_html=True)
 
             # Display success rate stats
-            success_data = calculate_success_rate(st.session_state.game_history)
+            success_data = calculate_success_rate(st.session_state.game_history_coin)
 
             # Create success rate display
             st.markdown(f"""
@@ -200,10 +200,10 @@ with col1:
 
         with col_score:
             # Display flip distribution chart
-            if st.session_state.game_history:
+            if st.session_state.game_history_coin:
                 # Create two columns for the charts
                 # st.markdown("התפלגות התוצאות:")
-                result, counts = calculate_flip_distribution(st.session_state.game_history)
+                result, counts = calculate_flip_distribution(st.session_state.game_history_coin)
 
                 fig = go.Figure(data=[
                     go.Bar(x=[str(x) for x in result], y=counts)
