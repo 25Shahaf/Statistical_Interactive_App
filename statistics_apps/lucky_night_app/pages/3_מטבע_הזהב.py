@@ -141,38 +141,46 @@ with col1:
     if 'flip_count' not in st.session_state:
         st.session_state.flip_count = 0
 
-    # Create two columns for the buttons
-    col_flip, col_reset, col_space = st.columns([1, 1, 2])
+    col_flips_input, col_flip, col_reset, col_space = st.columns([1, 1, 1, 1])
+
+    with col_flips_input:
+        num_flips = st.number_input(
+            "מספר הטלות (1-100):",
+            min_value=1,
+            max_value=100,
+            value=1,
+            step=1
+        )
 
     with col_flip:
-        flip_button= st.button("הטלת מטבע")
+        flip_button = st.button("הטלת המטבעות")
     with col_reset:
         reset_button = st.button("משחק חדש")
         if reset_button:
             reset_game()
 
     if flip_button:
-        st.session_state.flip_count += 1
-        coin = flip_coin()
-        is_lucky = coin == "עץ"  # Compare with string instead of number
+        st.markdown('ההטלה האחרונה:')
+        for _ in range(num_flips):
+            st.session_state.flip_count += 1
+            coin = flip_coin()
+            is_lucky = coin == "עץ"  # Compare with string instead of number
 
-        if is_lucky:
-            st.session_state.score += 1
+            if is_lucky:
+                st.session_state.score += 1
 
-        # Add flip to history
-        st.session_state.game_history.append({
-            'מספר הטלה': st.session_state.flip_count,
-            'תוצאה': coin  # Use coin directly since it's already the correct string
-        })
+            # Add flip to history
+            st.session_state.game_history.append({
+                'מספר הטלה': st.session_state.flip_count,
+                'תוצאה': coin  # Use coin directly since it's already the correct string
+            })
 
-        # Display current flip with coin visualization
+        # Display current flip with coin visualization (showing only the last flip)
         col_coin, col_score, col_space = st.columns([1, 1, 1])
         with col_coin:
             st.markdown(create_coin_svg(coin), unsafe_allow_html=True)
 
-            # Display score
-            #st.markdown(f"ניקוד מצטבר: {st.session_state.score}")
-
+            # Display success rate stats
             success_data = calculate_success_rate(st.session_state.game_history)
 
             # Create success rate display
@@ -194,7 +202,7 @@ with col1:
             # Display flip distribution chart
             if st.session_state.game_history:
                 # Create two columns for the charts
-                #st.markdown("התפלגות התוצאות:")
+                # st.markdown("התפלגות התוצאות:")
                 result, counts = calculate_flip_distribution(st.session_state.game_history)
 
                 fig = go.Figure(data=[
@@ -229,19 +237,57 @@ with col1:
         <div class='theory-section'>
         <h3>התפלגות ברנולי 📊</h3>
         
-        הסבר על התפלגות ברנולי.
+        התפלגות של משתנה מקרי X אשר מקבל 1 עבור הצלחה ו-0 עבור כישלון.
         
+        $Ber(q) \sim X$
+        
+        $q-1=$ $(0=P(x$ $\,$ ,  $q=$ $(1=P(x$
+        
+        $q=$ $E[X]$
+        
+        $(q-1)q=$ $Var[X]$
+                
         <h3>התפלגות בינומית 📊</h3>
         
-        הסבר על התפלגות בינומית.
+        מספר הצלחות ב-n ניסויי ברנולי ובלתי תלויים.
+        
+        $B(n, q) \sim X$
+        
+        $^{n-x}(q-1)^{x}q\\binom{n}{k}=$ $(x=P(X$
+        
+        $nq=$ $E[X]$
+        
+        $(q-1)nq=$ $Var[X]$
+
         
         <h3>התפלגות בינומית שלילית 📊</h3>
         
-        הסבר על התפלגות בינומית שלילית.
+        מספר הניסויים עד ל-m הצלחות, כאשר ההצלחה האחרונה היא בניסוי האחרון.
+        
+        $NB(m, q) \sim X$
+        
+        $^{x-m}(q-1)^{m}q\\binom{1-x}{1-m}=$ $(x=P(X$
+        
+        $\\frac{m}{q} =$ $E[X]$
+        
+        $\\frac{m(1-q)}{^{2}q} =$ $Var[X]$
         
         <h3>התפלגות גיאומטרית 📊</h3>
         
-        הסבר על התפלגות גיאומטרית.
+        מקרה פרטי של התפלגות בינומית שלילית - מספר ניסויי ברנולי עד להצלחה ראשונה.
+        
+        מאופיינת בתכונת חוסר זכרון, היסטוריית ההתפלגות לא משפיעה על ההסתברות.
+        
+        $G(q) \sim X$
+        
+        $^{1-k}(q-1)q =$ $(k=P(X$
+        
+        $^{k}(q-1)-1 =$ $(k\geq P(X$
+        
+        $\\frac{1}{q} =$ $E[X]$
+        
+        $\\frac{q+1-}{^{2}q} =$ $Var[X]$
+        
 
         </div>
     """, unsafe_allow_html=True)
@@ -256,7 +302,7 @@ with col1:
         <div class='practice-section'>
         בדיוק כמו במשחק, נתון מטבע סטנדרטי עם שני צדדים - עץ ופלי. תוצאה של "עץ" מזכה בנקודה.
 
-        * יש לקחת 4 ספרות לאחר הנקודה (בשבר עשרוני) בכל שלב בחישוב ולהזין את התשובה הסופית באחוזים בדיוק של 2 ספרות.
+        * יש לקחת 4 ספרות לאחר הנקודה (בשבר עשרוני) בכל שלב בחישוב ולהזין את התשובה הסופית באחוזים בדיוק של 2 ספרות (%XX.xx).
         </div>
     """, unsafe_allow_html=True)
 

@@ -12,6 +12,8 @@ def calculate_radii_from_percentages(percent_a, percent_b):
     radius_b = math.sqrt((percent_a + percent_b) / 100)
     return radius_a, radius_b
 
+def calculate_score(area_percent):
+    return max(1, int(10 - (area_percent / 10)))
 
 def draw_target(radius_a, radius_b, radius_c=1, throws=None, figsize=(2, 2), show_square=False):
     fig, ax = plt.subplots(figsize=figsize)
@@ -103,13 +105,14 @@ with col1:
         <h3>ברוכים הבאים למשחק בול פגיעה!</h3>
     
         כאן תוכלו לתרגל וליישם הסתברות גיאומטרית והסתברות מותנית בעזרת זריקת חצים על לוח מטרה.
+        
+        הסיכוי לפגוע בכל אזור בלוח תלוי בגודלו ביחס לכל הלוח.
     
         <h4>חוקי המשחק:</h4>
         לפניכם לוח מטרה עגול המחולק ל-3 אזורים: B, A ו-C.
         <ul>
-        <li>פגיעה באזור A מזכה ב-20 נקודות</li>
-        <li>פגיעה באזור B מזכה ב-10 נקודות</li>
-        <li>פגיעה באזור C לא מזכה בנקודות</li>
+        <li>הניקוד לכל אזור מחושב אוטומטית לפי גודל האזור, כך שהוא השלמה ל-10 ביחס לאחוז השטח.</li>
+        <li>למשל, אזור ששטחו 70% יזכה ב-3 נקודות.</li>
         </ul>
         
         הרעיון הוא פשוט - ככל שהאזור קטן יותר, כך קשה יותר לפגוע בו, אבל הפרס גדול יותר!
@@ -154,21 +157,33 @@ with col1:
 
             #  Presenting the results
             st.markdown('<div class="game-explanation-header"><h3>תוצאות הזריקות:</h3></div>', unsafe_allow_html=True)
+            score_a = calculate_score(percent_a)
+            score_b = calculate_score(percent_b)
+            score_c = calculate_score(percent_c)
+
             col1, col2, col3 = st.columns(3)
             with col1:
                 st.metric("אזור A", f"{hits['A'] / n_throws * 100:.1f}%")
+                st.markdown(f"**ניקוד:** {score_a} נקודות")
             with col2:
                 st.metric("אזור B", f"{hits['B'] / n_throws * 100:.1f}%")
+                st.markdown(f"**ניקוד:** {score_b} נקודות")
             with col3:
                 st.metric("אזור C", f"{hits['C'] / n_throws * 100:.1f}%")
+                st.markdown(f"**ניקוד:** {score_c} נקודות")
+
             col1, col2, col3 = st.columns(3)
             with col1:
                 st.markdown("**סך כל הנקודות מאזור A:**")
-                st.markdown(f"{hits['A'] * 20}")
+                st.markdown(f"{hits['A'] * score_a}")
             with col2:
                 st.markdown("**סך כל הנקודות מאזור B:**")
-                st.markdown(f"{hits['B'] * 10}")
-            st.markdown(f"**סך הנקודות הכולל:** {(hits['A'] * 20 + hits['B'] * 10)}")
+                st.markdown(f"{hits['B'] * score_b}")
+            with col3:
+                st.markdown("**סך כל הנקודות מאזור C:**")
+                st.markdown(f"{hits['C'] * score_c}")
+
+            st.markdown(f"**סך הנקודות הכולל:** {(hits['A'] * score_a + hits['B'] * score_b + hits['C'] * score_c)}")
 
 
 # --- Theory Section ---
@@ -214,7 +229,7 @@ with col1:
         
         $ [cm] 55 = R(C)$
         
-        * את התשובות יש להזין בדיוק של 2 ספרות אחרי הנקודה.
+        * את התשובות יש להזין באחוזים בדיוק של 2 ספרות אחרי הנקודה (%XX.xx).
         </div>
     """, unsafe_allow_html=True)
 

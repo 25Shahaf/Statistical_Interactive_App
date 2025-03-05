@@ -135,7 +135,17 @@ with col1:
         st.session_state.roll_count = 0
 
     # Create two columns for the buttons
-    col_roll, col_reset, col_space = st.columns([1, 1, 2])
+    # Create columns for input and buttons
+    col_rolls_input, col_roll, col_reset, col_space = st.columns([1, 1, 1, 1])
+
+    with col_rolls_input:
+        num_rolls = st.number_input(
+            "מספר הטלות (1-100):",
+            min_value=1,
+            max_value=100,
+            value=1,
+            step=1
+        )
 
     with col_roll:
         roll_button = st.button("הטלת קוביות")
@@ -144,25 +154,27 @@ with col1:
         if reset_button:
             reset_game()
 
+    st.markdown('ההטלה האחרונה:')
     if roll_button:
-        st.session_state.roll_count += 1
-        dice1, dice2 = roll_dice()
-        sum_dice = dice1 + dice2
-        is_lucky = is_lucky_sum(sum_dice)
+        for _ in range(num_rolls):
+            st.session_state.roll_count += 1
+            dice1, dice2 = roll_dice()
+            sum_dice = dice1 + dice2
+            is_lucky = is_lucky_sum(sum_dice)
 
-        if is_lucky:
-            st.session_state.score += 1
+            if is_lucky:
+                st.session_state.score += 1
 
-        # Add roll to history
-        st.session_state.game_history.append({
-            'מספר הטלה': st.session_state.roll_count,
-            'קובייה 1': dice1,
-            'קובייה 2': dice2,
-            'סכום': sum_dice,
-            'מספר מזל': "כן" if is_lucky else "לא"
-        })
+            # Add roll to history
+            st.session_state.game_history.append({
+                'מספר הטלה': st.session_state.roll_count,
+                'קובייה 1': dice1,
+                'קובייה 2': dice2,
+                'סכום': sum_dice,
+                'מספר מזל': "כן" if is_lucky else "לא"
+            })
 
-        # Display current roll with dice visualization
+        # Display last roll with dice visualization (showing only the last roll)
         col_dice1, col_dice2, col_result = st.columns([1, 1, 2])
         with col_dice1:
             st.markdown('קובייה 1️⃣', unsafe_allow_html=True)
@@ -181,7 +193,7 @@ with col1:
                           color: black;
                           text-align: center;
                           font-size: 1.2em;'>
-                <h4>תוצאת ההטלה:</h4>
+                <h4>תוצאת ההטלה האחרונה:</h4>
                 סכום: {sum_dice}<br>
                 {" 🎉 מספר מזל! " if is_lucky else " לא מספר מזל... "}
                 </div>
@@ -296,7 +308,10 @@ with col1:
         3. **צירופים ללא החזרה** (Combinations without Repetition):
           - הסדר אינו חשוב ואין חזרה על פריטים
           - נוסחה: $\\frac{!n}{!k!(n-k)} = \\binom{n}{k} = C(n,k)$
-
+        
+        4. **צירופים עם החזרה** (Combinations with Repetition):
+          - הסדר אינו חשוב ומותרת חזרה על פריטים
+          - נוסחה: $\\frac{!(n+k-1)}{!k!(n-1)} = \\binom{n+k-1}{k}$
 
           כאשר עבור כל המקרים:
         - $n$: מספר הפריטים הכולל (האוכלוסיה)
@@ -317,7 +332,7 @@ with col1:
 
         מספרי המזל הם 6 ו-9.
 
-        * את התשובות יש להזין בדיוק של 2 ספרות אחרי הנקודה.
+        * תשובות באחוזים יש להזין בדיוק של 2 ספרות אחרי הנקודה (%XX.xx).
         </div>
     """, unsafe_allow_html=True)
 
