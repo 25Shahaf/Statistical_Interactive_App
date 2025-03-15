@@ -113,9 +113,9 @@ with col1:
 
         <h4>חוקי המשחק:</h4>
         ברשותכם 2 קוביות סטנדרטיות עם 6 פאות ממוספרות.
-        הטילו את 2 הקוביות וסכמו את התוצאה.
+        הטילו את 2 הקוביות וסכמו את הספרות שהתקבלו.
         
-        רק תוצאה של מספרי המזל 6 ו-9 מזכה בנקודה.
+        אם הסכום שהתקבל הינו אחד ממספרי המזל 6 או 9, תזכו בנקודה.
         
         </div>
     """, unsafe_allow_html=True)
@@ -253,7 +253,7 @@ with col1:
                 # Display history table with colored rows
                 if st.session_state.game_history:
                     st.markdown("\n")
-                    st.markdown("היסטוריית הטלות אחרונות")
+                    st.markdown("10 הטלות אחרונות")
 
                     # Get last 10 rolls (reversed to show newest first)
                     last_10_rolls = list(reversed(st.session_state.game_history[-10:]))
@@ -291,11 +291,7 @@ with col1:
         <div class='theory-section'>
         <h3>קומבינטוריקה 🔢</h3>
         
-        קומבינטוריקה היא ענף במתמטיקה העוסק בספירת אפשרויות ובחירה והסדרה של אוכלוסיות וקבוצות.
-        \n
-         היא מתאימה במיוחד לניסויים סימטריים ומצבים שבהם יש צורך לחשב מספר דרכים שונות לביצוע משימה או בחירת אלמנטים מתוך קבוצה.
-        
-        סוגי בעיות קומבינטוריות:
+        אנו עוסקים בקורס ב-3 סוגי בעיות קומבינטוריות:
         
         1. **חליפות עם החזרה** (Permutations with Repetition):
           - סדר הפריטים חשוב ומותרת חזרה על פריטים
@@ -308,10 +304,6 @@ with col1:
         3. **צירופים ללא החזרה** (Combinations without Repetition):
           - הסדר אינו חשוב ואין חזרה על פריטים
           - נוסחה: $\\frac{!n}{!k!(n-k)} = \\binom{n}{k} = C(n,k)$
-        
-        4. **צירופים עם החזרה** (Combinations with Repetition):
-          - הסדר אינו חשוב ומותרת חזרה על פריטים
-          - נוסחה: $\\frac{!(n+k-1)}{!k!(n-1)} = \\binom{n+k-1}{k}$
 
           כאשר עבור כל המקרים:
         - $n$: מספר הפריטים הכולל (האוכלוסיה)
@@ -443,9 +435,9 @@ with col1:
         <h3>שאלה 4️⃣</h3>
         לאחר מספר סיבובי משחקים, התחלתם לחשוד שאחת מהקוביות היא מזויפת אבל אתם לא בטוחים איזו מהן.
         \n
-        כדי לבדוק את ההשערה שלכם, החלטתם לתעד את ההטלות של קוביות 2 ו-1 בנפרד.
+        כדי לבדוק את ההשערה שלכם, החלטתם לתעד 24 הטלות של קוביות 2 ו-1 בנפרד.
          \n
-         בהסתמך על ההטלות שתעדתם בלבד, איזו קוביה היא ככל הנראה מזויפת?
+         בהסתמך על ההטלות שתעדתם בלבד ומוצגות מטה, איזו קוביה ייתכן שהינה מזוייפת?
         </div>
     """, unsafe_allow_html=True)
 
@@ -488,7 +480,7 @@ with col1:
         """)
 
     user_answer4 = st.number_input(
-        "הכניסו את מספר הקוביה המזויפת:",
+        "הכניסו את מספר הקוביה שייתכן כי היא מזוייפת:",
         min_value=0.0,
         max_value=100.0,
         step=0.1,
@@ -523,7 +515,9 @@ with col1:
                         "* מספר 6: 9/24 = 37.5%\n"
                         "\n"
                         "התפלגות התוצאות בקובייה 2 מראה העדפה למספרים 5 ו-6 (במיוחד ל-6), ותדירות נמוכה יותר למספרים 1-4.\n"
-                        "זוהי סטייה מההסתברות התיאורטית של קובייה הוגנת (1/6 = 16.7% לכל מספר), ולכן קובייה 2 מזויפת."
+                        "זוהי סטייה מההסתברות התיאורטית של קובייה הוגנת (1/6 = 16.7% לכל מספר), ולכן ייתכן כי קוביה 2 מזוייפת."
+                       "\n"
+                       "יחד עם זאת, יש לשים לב כי לא באמת נוכל לקבוע זאת בוודאות וזוהי רק השערה שמסתמכת על 20 הטלות בלבד."
                     )
         else:
             st.error("לא מדויק. נסו שוב!")
@@ -532,7 +526,9 @@ with col1:
     st.markdown("""
         <div class='question-box'>
         <h3>שאלה 5️⃣</h3>
-        בהתבסס על תוצאות ההטלות מהשאלה הקודמת, מה ההסתברות לקבל מספר מזל כאשר 2 הקוביות מזויפות?
+        נתון כי הקוביה שחשדתם שהינה מזוייפת בשאלה הקודמת אכן מזוייפת, ותוצאות ההטלה שלה מתפלגות בהתאם למה שקיבלתם בשאלה הקודמת.
+        \n
+        מה ההסתברות לקבל סכום של מספר מזל כאשר מטילים 2 קוביות מזוייפות כאלה?
         \n
         כדי להגיע לתשובה, יש לבצע את כל החישובים באחוזים בדיוק של 2 ספרות אחרי הנקודה.
         </div>
