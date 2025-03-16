@@ -290,7 +290,7 @@ with col1:
         correct_answer = 4.76
 
         # First check if the answer is correct
-        if abs(user_answer1 - correct_answer) < 0.01:
+        if user_answer1 == correct_answer:
             st.session_state.q1_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
@@ -349,7 +349,7 @@ with col1:
         correct_answer = 42.55
 
         # First check if the answer is correct
-        if abs(user_answer2 - correct_answer) < 0.01:
+        if user_answer2 == correct_answer:
             st.session_state.q2_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
@@ -408,7 +408,7 @@ with col1:
         correct_answer = 16
 
         # First check if the answer is correct
-        if abs(user_answer3 - correct_answer) < 0.01:
+        if user_answer3 == correct_answer:
             st.session_state.q3_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
@@ -481,7 +481,7 @@ with col1:
         correct_answer = 5.76  # (12/50)^2 * 100
 
         # First check if the answer is correct
-        if abs(user_answer4 - correct_answer) < 0.1:
+        if user_answer4 == correct_answer:
             st.session_state.q4_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts

@@ -516,7 +516,7 @@ with col1:
             st.session_state.q3_attempts_dice += 1
 
         correct_answer = 25  # (9/36) * 100
-        if abs(user_answer3 - correct_answer) < 0.01:
+        if user_answer3 == correct_answer:
             st.session_state.q3_show_solution_dice = True
 
 
@@ -746,7 +746,7 @@ with col1:
             st.session_state.q5_attempts_dice += 1
 
         correct_answer = 19.43
-        if abs(user_answer5 - correct_answer) == 0:
+        if user_answer5 == correct_answer:
             st.session_state.q5_show_solution_dice = True
 
 
