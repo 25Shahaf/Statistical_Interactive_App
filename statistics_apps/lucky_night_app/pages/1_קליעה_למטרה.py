@@ -287,10 +287,10 @@ with col1:
 
     # Create a function to check the answer and update attempts when the button is clicked
     def check_answer1_target():
-        correct_answer = 4.76
+        correct_answer1 = 4.76
 
         # First check if the answer is correct
-        if user_answer1 == correct_answer:
+        if user_answer1 == correct_answer1:
             st.session_state.q1_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
@@ -346,10 +346,10 @@ with col1:
 
     # Create a function to check the answer and update attempts when the button is clicked
     def check_answer2_target():
-        correct_answer = 42.55
+        correct_answer2 = 42.55
 
         # First check if the answer is correct
-        if user_answer2 == correct_answer:
+        if user_answer2 == correct_answer2:
             st.session_state.q2_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
@@ -405,10 +405,10 @@ with col1:
 
     # Create a function to check the answer and update attempts when the button is clicked
     def check_answer3_target():
-        correct_answer = 16
+        correct_answer3 = 16
 
         # First check if the answer is correct
-        if user_answer3 == correct_answer:
+        if user_answer3 == correct_answer3:
             st.session_state.q3_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
@@ -478,10 +478,10 @@ with col1:
 
     # Create a function to check the answer and update attempts when the button is clicked
     def check_answer4_target():
-        correct_answer = 5.76  # (12/50)^2 * 100
+        correct_answer4 = 5.76  # (12/50)^2 * 100
 
         # First check if the answer is correct
-        if user_answer4 == correct_answer:
+        if user_answer4 == correct_answer4:
             st.session_state.q4_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
