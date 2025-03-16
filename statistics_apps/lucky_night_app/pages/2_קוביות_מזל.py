@@ -223,7 +223,7 @@ with col1:
                     showlegend=False,
                     height=500,
                     yaxis=dict(
-                    dtick=1  # Set y-axis tick interval to 1
+                    dtick=10  # Set y-axis tick interval to 1
                     ),
                     xaxis=dict(
                     dtick=1  # Set x-axis tick interval to 1
@@ -314,6 +314,29 @@ with col1:
 # --- Practice Section ---
 st.markdown('<div class="section-header"><h2>✍️ בואו נתרגל!</h2></div>', unsafe_allow_html=True)
 
+# Initialize session state for attempt counters
+if 'q1_attempts_dice' not in st.session_state:
+    st.session_state.q1_attempts_dice = 0
+if 'q2_attempts_dice' not in st.session_state:
+    st.session_state.q2_attempts_dice = 0
+if 'q3_attempts_dice' not in st.session_state:
+    st.session_state.q3_attempts_dice = 0
+if 'q4_attempts_dice' not in st.session_state:
+    st.session_state.q4_attempts_dice = 0
+if 'q5_attempts_dice' not in st.session_state:
+    st.session_state.q5_attempts_dice = 0
+
+# Initialize session state for showing solutions
+if 'q1_show_solution_dice' not in st.session_state:
+    st.session_state.q1_show_solution_dice = False
+if 'q2_show_solution_dice' not in st.session_state:
+    st.session_state.q2_show_solution_dice = False
+if 'q3_show_solution_dice' not in st.session_state:
+    st.session_state.q3_show_solution_dice = False
+if 'q4_show_solution_dice' not in st.session_state:
+    st.session_state.q4_show_solution_dice = False
+if 'q5_show_solution_dice' not in st.session_state:
+    st.session_state.q5_show_solution_dice = False
 
 col1, col2 = st.columns(2)
 
@@ -343,22 +366,58 @@ with col1:
         min_value=0.0,
         max_value=100.0,
         step=0.1,
-        key="q1"
+        key="q1_dice"
     )
 
-    if st.button("בדיקת תשובה", key="check1"):
+
+    # Function to check answer and update attempts
+    def check_answer1_dice():
+        if st.session_state.q1_attempts_dice < 10:
+            st.session_state.q1_attempts_dice += 1
+
         correct_answer = 21
         if user_answer1 == correct_answer:
-            st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer}. \n"
-                       "\n"
-                       "**הסבר:** כשהסדר לא חשוב, אנחנו משתמשים בנוסחת הצירופים (combinations):\n\n"
-                       "* זוגות זהים (1,1), (2,2) וכו׳: 6 אפשרויות.\n"
-                       "* זוגות שונים: המספרים שונים זה מזה, ולכן זה בעצם בחירת 2 מספרים מתוך 6, כשהסדר לא חשוב.\n"
-                       "* נשתמש בנוסחה: $15 = \\frac{6 \\cdot 5}{2 \\cdot 1} = \\frac{!6}{!2!(6-2)} = \\binom{6}{2} $ \n"
-                       "* סה\"כ: 6 + 15 = 21 צמדים שונים"
-                       )
-        else:
-            st.error("לא מדויק. נסו שוב!")
+            st.session_state.q1_show_solution_dice = True
+
+
+    # Display remaining attempts based on current session state
+    if st.session_state.q1_show_solution_dice:
+        st.write("התשובה נכונה!")
+    elif st.session_state.q1_attempts_dice >= 10:
+        st.write("לא נותרו ניסיונות")
+    else:
+        remaining = 10 - st.session_state.q1_attempts_dice
+        st.write(f"נותרו {remaining} ניסיונות")
+
+    # Create the check button and link it to the function
+    check_button1 = st.button("בדיקת תשובה", key="check1_dice",
+                              disabled=st.session_state.q1_attempts_dice >= 10 or st.session_state.q1_show_solution_dice,
+                              on_click=check_answer1_dice)
+
+    # Handle displaying solution or error based on attempt outcome
+    correct_answer = 21
+    if st.session_state.q1_show_solution_dice:
+        st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer}. \n"
+                   "\n"
+                   "**הסבר:** כשהסדר לא חשוב, אנחנו משתמשים בנוסחת הצירופים (combinations):\n\n"
+                   "* זוגות זהים (1,1), (2,2) וכו׳: 6 אפשרויות.\n"
+                   "* זוגות שונים: המספרים שונים זה מזה, ולכן זה בעצם בחירת 2 מספרים מתוך 6, כשהסדר לא חשוב.\n"
+                   "* נשתמש בנוסחה: $15 = \\frac{6 \\cdot 5}{2 \\cdot 1} = \\frac{!6}{!2!(6-2)} = \\binom{6}{2} $ \n"
+                   "* סה\"כ: 6 + 15 = 21 צמדים שונים"
+                   )
+    elif st.session_state.q1_attempts_dice >= 10:
+        st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
+                 "\n"
+                 f"התשובה הנכונה היא {correct_answer}. \n"
+                 "\n"
+                 "**הסבר:** כשהסדר לא חשוב, אנחנו משתמשים בנוסחת הצירופים (combinations):\n\n"
+                 "* זוגות זהים (1,1), (2,2) וכו׳: 6 אפשרויות.\n"
+                 "* זוגות שונים: המספרים שונים זה מזה, ולכן זה בעצם בחירת 2 מספרים מתוך 6, כשהסדר לא חשוב.\n"
+                 "* נשתמש בנוסחה: $15 = \\frac{6 \\cdot 5}{2 \\cdot 1} = \\frac{!6}{!2!(6-2)} = \\binom{6}{2} $ \n"
+                 "* סה\"כ: 6 + 15 = 21 צמדים שונים"
+                 )
+    elif check_button1 and not st.session_state.q1_show_solution_dice:
+        st.error("לא מדויק. נסו שוב!")
 
     # Question 2
     st.markdown("""
@@ -368,31 +427,71 @@ with col1:
         </div>
     """, unsafe_allow_html=True)
 
-    user_answer = st.number_input(
+    user_answer2 = st.number_input(
         "הכניסו את תשובתכם:",
         min_value=0.0,
         max_value=100.0,
         step=0.1,
-        key="q2"
+        key="q2_dice"
     )
 
-    if st.button("בדיקת תשובה", key="check2"):
+
+    # Function to check answer and update attempts
+    def check_answer2_dice():
+        if st.session_state.q2_attempts_dice < 10:
+            st.session_state.q2_attempts_dice += 1
+
         correct_answer = 4
-        if user_answer == correct_answer:
-            st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer}. \n"
-                       "\n"
-                       "**הסבר:** במקרה הזה החישוב פשוט, אבל נחשב באמצעות תמורות (permutations) לשם התרגול:\n\n"
-                       "* ראשית, נמצא את כל הזוגות השונים שסכומם 9: (3,6), (4,5)\n"
-                       "* עבור כל זוג, נחשב את מספר התמורות האפשריות כשהסדר כן חשוב.\n"
-                       "* הנוסחה לתמורה של 2 איברים היא: \n"
-                       "$2 = \\frac{2 \\cdot 1}{1}  = \\frac{!2}{!0} = \\frac{!2}{!(2-2)}= N$\n"
-                       "* לכן:\n"
-                       "  * עבור הזוג (3,6): 2 תמורות - (3,6), (6,3)\n"
-                       "  * עבור הזוג (4,5): 2 תמורות - (4,5), (5,4)\n"
-                       "* סה״כ: 2 זוגות × 2 תמורות = 4 אפשרויות"
-                       )
-        else:
-            st.error("לא מדויק. נסו שוב!")
+        if user_answer2 == correct_answer:
+            st.session_state.q2_show_solution_dice = True
+
+
+    # Display remaining attempts based on current session state
+    if st.session_state.q2_show_solution_dice:
+        st.write("התשובה נכונה!")
+    elif st.session_state.q2_attempts_dice >= 10:
+        st.write("לא נותרו ניסיונות")
+    else:
+        remaining = 10 - st.session_state.q2_attempts_dice
+        st.write(f"נותרו {remaining} ניסיונות")
+
+    # Create the check button and link it to the function
+    check_button2 = st.button("בדיקת תשובה", key="check2_dice",
+                              disabled=st.session_state.q2_attempts_dice >= 10 or st.session_state.q2_show_solution_dice,
+                              on_click=check_answer2_dice)
+
+    # Handle displaying solution or error based on attempt outcome
+    correct_answer = 4
+    if st.session_state.q2_show_solution_dice:
+        st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer}. \n"
+                   "\n"
+                   "**הסבר:** במקרה הזה החישוב פשוט, אבל נחשב באמצעות תמורות (permutations) לשם התרגול:\n\n"
+                   "* ראשית, נמצא את כל הזוגות השונים שסכומם 9: (3,6), (4,5)\n"
+                   "* עבור כל זוג, נחשב את מספר התמורות האפשריות כשהסדר כן חשוב.\n"
+                   "* הנוסחה לתמורה של 2 איברים היא: \n"
+                   "$2 = \\frac{2 \\cdot 1}{1}  = \\frac{!2}{!0} = \\frac{!2}{!(2-2)}= N$\n"
+                   "* לכן:\n"
+                   "  * עבור הזוג (3,6): 2 תמורות - (3,6), (6,3)\n"
+                   "  * עבור הזוג (4,5): 2 תמורות - (4,5), (5,4)\n"
+                   "* סה״כ: 2 זוגות × 2 תמורות = 4 אפשרויות"
+                   )
+    elif st.session_state.q2_attempts_dice >= 10:
+        st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
+                 "\n"
+                 f"התשובה הנכונה היא {correct_answer}. \n"
+                 "\n"
+                 "**הסבר:** במקרה הזה החישוב פשוט, אבל נחשב באמצעות תמורות (permutations) לשם התרגול:\n\n"
+                 "* ראשית, נמצא את כל הזוגות השונים שסכומם 9: (3,6), (4,5)\n"
+                 "* עבור כל זוג, נחשב את מספר התמורות האפשריות כשהסדר כן חשוב.\n"
+                 "* הנוסחה לתמורה של 2 איברים היא: \n"
+                 "$2 = \\frac{2 \\cdot 1}{1}  = \\frac{!2}{!0} = \\frac{!2}{!(2-2)}= N$\n"
+                 "* לכן:\n"
+                 "  * עבור הזוג (3,6): 2 תמורות - (3,6), (6,3)\n"
+                 "  * עבור הזוג (4,5): 2 תמורות - (4,5), (5,4)\n"
+                 "* סה״כ: 2 זוגות × 2 תמורות = 4 אפשרויות"
+                 )
+    elif check_button2 and not st.session_state.q2_show_solution_dice:
+        st.error("לא מדויק. נסו שוב!")
 
     # Question 3
     st.markdown("""
@@ -402,32 +501,73 @@ with col1:
         </div>
     """, unsafe_allow_html=True)
 
-    user_answer = st.number_input(
+    user_answer3 = st.number_input(
         "הכניסו את תשובתכם באחוזים:",
         min_value=0.0,
         max_value=100.0,
         step=0.1,
-        key="q3"
+        key="q3_dice"
     )
 
-    if st.button("בדיקת תשובה", key="check3"):
+
+    # Function to check answer and update attempts
+    def check_answer3_dice():
+        if st.session_state.q3_attempts_dice < 10:
+            st.session_state.q3_attempts_dice += 1
+
         correct_answer = 25  # (9/36) * 100
-        if abs(user_answer - correct_answer) < 0.01:
-            st.success(
-                f"כל הכבוד! התשובה הנכונה היא {correct_answer:.0f}%.\n"
-                "\n"
-                "**הסבר:** נחשב את ההסתברות לקבל סכום של 6 או 9:\n"
-                "\n"
-                "* מספר האפשרויות לקבלת סכום 6:\n"
-                "  * זוגות שונים: (1,5), (2,4), (4,2), (5,1) - כל אחד נספר בנפרד כי הקוביות שונות\n"
-                "  * זוג זהה: (3,3) - נספר פעם אחת כי אותו מספר בשתי הקוביות\n"
-                "  * סה\"כ 5 אפשרויות\n"
-                "* מספר האפשרויות לקבלת סכום 9: (3,6), (4,5), (5,4), (6,3) = 4 אפשרויות\n"
-                "* סך כל האפשרויות בהטלת 2 קוביות: 6 × 6 = 36 אפשרויות\n"
-                "* לכן ההסתברות היא: $25\\% = 0.25 = \\frac{9}{36} = \\frac{5+4}{36}$"
-            )
-        else:
-            st.error("לא מדויק. נסו שוב!")
+        if abs(user_answer3 - correct_answer) < 0.01:
+            st.session_state.q3_show_solution_dice = True
+
+
+    # Display remaining attempts based on current session state
+    if st.session_state.q3_show_solution_dice:
+        st.write("התשובה נכונה!")
+    elif st.session_state.q3_attempts_dice >= 10:
+        st.write("לא נותרו ניסיונות")
+    else:
+        remaining = 10 - st.session_state.q3_attempts_dice
+        st.write(f"נותרו {remaining} ניסיונות")
+
+    # Create the check button and link it to the function
+    check_button3 = st.button("בדיקת תשובה", key="check3_dice",
+                              disabled=st.session_state.q3_attempts_dice >= 10 or st.session_state.q3_show_solution_dice,
+                              on_click=check_answer3_dice)
+
+    # Handle displaying solution or error based on attempt outcome
+    correct_answer = 25  # (9/36) * 100
+    if st.session_state.q3_show_solution_dice:
+        st.success(
+            f"כל הכבוד! התשובה הנכונה היא {correct_answer:.0f}%.\n"
+            "\n"
+            "**הסבר:** נחשב את ההסתברות לקבל סכום של 6 או 9:\n"
+            "\n"
+            "* מספר האפשרויות לקבלת סכום 6:\n"
+            "  * זוגות שונים: (1,5), (2,4), (4,2), (5,1) - כל אחד נספר בנפרד כי הקוביות שונות\n"
+            "  * זוג זהה: (3,3) - נספר פעם אחת כי אותו מספר בשתי הקוביות\n"
+            "  * סה\"כ 5 אפשרויות\n"
+            "* מספר האפשרויות לקבלת סכום 9: (3,6), (4,5), (5,4), (6,3) = 4 אפשרויות\n"
+            "* סך כל האפשרויות בהטלת 2 קוביות: 6 × 6 = 36 אפשרויות\n"
+            "* לכן ההסתברות היא: $25\\% = 0.25 = \\frac{9}{36} = \\frac{5+4}{36}$"
+        )
+    elif st.session_state.q3_attempts_dice >= 10:
+        st.error(
+            f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
+            "\n"
+            f"התשובה הנכונה היא {correct_answer:.0f}%. \n"
+            "\n"
+            "**הסבר:** נחשב את ההסתברות לקבל סכום של 6 או 9:\n"
+            "\n"
+            "* מספר האפשרויות לקבלת סכום 6:\n"
+            "  * זוגות שונים: (1,5), (2,4), (4,2), (5,1) - כל אחד נספר בנפרד כי הקוביות שונות\n"
+            "  * זוג זהה: (3,3) - נספר פעם אחת כי אותו מספר בשתי הקוביות\n"
+            "  * סה\"כ 5 אפשרויות\n"
+            "* מספר האפשרויות לקבלת סכום 9: (3,6), (4,5), (5,4), (6,3) = 4 אפשרויות\n"
+            "* סך כל האפשרויות בהטלת 2 קוביות: 6 × 6 = 36 אפשרויות\n"
+            "* לכן ההסתברות היא: $25\\% = 0.25 = \\frac{9}{36} = \\frac{5+4}{36}$"
+        )
+    elif check_button3 and not st.session_state.q3_show_solution_dice:
+        st.error("לא מדויק. נסו שוב!")
 
     # Question 4
     st.markdown("""
@@ -484,43 +624,100 @@ with col1:
         min_value=0.0,
         max_value=100.0,
         step=0.1,
-        key="q4"
+        key="q4_dice"
     )
 
-    if st.button("בדיקת תשובה", key="check4"):
+
+    # Function to check answer and update attempts
+    def check_answer4_dice():
+        if st.session_state.q4_attempts_dice < 10:
+            st.session_state.q4_attempts_dice += 1
+
         correct_answer = 2
         if user_answer4 == correct_answer:
-            st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.0f}%. \n"
-                       "\n"
-                       "**הסבר:**\n"
-                        "\n"
-                        "נבדוק את התדירות היחסית של כל מספר בכל קובייה:\n"
-                        "\n"
-                        "**קובייה 1:**\n"
-                        "* מספר 1: 4/24 = 16.7%\n"
-                        "* מספר 2: 4/24 = 16.7%\n"
-                        "* מספר 3: 4/24 = 16.7%\n"
-                        "* מספר 4: 4/24 = 16.7%\n"
-                        "* מספר 5: 4/24 = 16.7%\n"
-                        "* מספר 6: 4/24 = 16.7%\n"
-                        "\n"
-                        "התפלגות התוצאות בקובייה 1 אחידה ותואמת את ההסתברות התיאורטית של 1/6 = 16.7% לכל מספר.\n"
-                        "\n"
-                        "**קובייה 2:**\n"
-                        "* מספר 1: 2/24 = 8.3%\n"
-                        "* מספר 2: 2/24 = 8.3%\n"
-                        "* מספר 3: 2/24 = 8.3%\n"
-                        "* מספר 4: 3/24 = 12.5%\n"
-                        "* מספר 5: 6/24 = 25%\n"
-                        "* מספר 6: 9/24 = 37.5%\n"
-                        "\n"
-                        "התפלגות התוצאות בקובייה 2 מראה העדפה למספרים 5 ו-6 (במיוחד ל-6), ותדירות נמוכה יותר למספרים 1-4.\n"
-                        "זוהי סטייה מההסתברות התיאורטית של קובייה הוגנת (1/6 = 16.7% לכל מספר), ולכן ייתכן כי קוביה 2 מזוייפת."
-                       "\n"
-                       "יחד עם זאת, יש לשים לב כי לא באמת נוכל לקבוע זאת בוודאות וזוהי רק השערה שמסתמכת על 20 הטלות בלבד."
-                    )
-        else:
-            st.error("לא מדויק. נסו שוב!")
+            st.session_state.q4_show_solution_dice = True
+
+
+    # Display remaining attempts based on current session state
+    if st.session_state.q4_show_solution_dice:
+        st.write("התשובה נכונה!")
+    elif st.session_state.q4_attempts_dice >= 10:
+        st.write("לא נותרו ניסיונות")
+    else:
+        remaining = 10 - st.session_state.q4_attempts_dice
+        st.write(f"נותרו {remaining} ניסיונות")
+
+    # Create the check button and link it to the function
+    check_button4 = st.button("בדיקת תשובה", key="check4_dice",
+                              disabled=st.session_state.q4_attempts_dice >= 10 or st.session_state.q4_show_solution_dice,
+                              on_click=check_answer4_dice)
+
+    # Handle displaying solution or error based on attempt outcome
+    correct_answer = 2
+    if st.session_state.q4_show_solution_dice:
+        st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.0f}%. \n"
+                   "\n"
+                   "**הסבר:**\n"
+                   "\n"
+                   "נבדוק את התדירות היחסית של כל מספר בכל קובייה:\n"
+                   "\n"
+                   "**קובייה 1:**\n"
+                   "* מספר 1: 4/24 = 16.7%\n"
+                   "* מספר 2: 4/24 = 16.7%\n"
+                   "* מספר 3: 4/24 = 16.7%\n"
+                   "* מספר 4: 4/24 = 16.7%\n"
+                   "* מספר 5: 4/24 = 16.7%\n"
+                   "* מספר 6: 4/24 = 16.7%\n"
+                   "\n"
+                   "התפלגות התוצאות בקובייה 1 אחידה ותואמת את ההסתברות התיאורטית של 1/6 = 16.7% לכל מספר.\n"
+                   "\n"
+                   "**קובייה 2:**\n"
+                   "* מספר 1: 2/24 = 8.3%\n"
+                   "* מספר 2: 2/24 = 8.3%\n"
+                   "* מספר 3: 2/24 = 8.3%\n"
+                   "* מספר 4: 3/24 = 12.5%\n"
+                   "* מספר 5: 6/24 = 25%\n"
+                   "* מספר 6: 9/24 = 37.5%\n"
+                   "\n"
+                   "התפלגות התוצאות בקובייה 2 מראה העדפה למספרים 5 ו-6 (במיוחד ל-6), ותדירות נמוכה יותר למספרים 1-4.\n"
+                   "זוהי סטייה מההסתברות התיאורטית של קובייה הוגנת (1/6 = 16.7% לכל מספר), ולכן ייתכן כי קוביה 2 מזוייפת."
+                   "\n"
+                   "יחד עם זאת, יש לשים לב כי לא באמת נוכל לקבוע זאת בוודאות וזוהי רק השערה שמסתמכת על 20 הטלות בלבד."
+                   )
+    elif st.session_state.q4_attempts_dice >= 10:
+        st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
+                 "\n"
+                 f"התשובה הנכונה היא {correct_answer:.0f}%. \n"
+                 "\n"
+                 "**הסבר:**\n"
+                 "\n"
+                 "נבדוק את התדירות היחסית של כל מספר בכל קובייה:\n"
+                 "\n"
+                 "**קובייה 1:**\n"
+                 "* מספר 1: 4/24 = 16.7%\n"
+                 "* מספר 2: 4/24 = 16.7%\n"
+                 "* מספר 3: 4/24 = 16.7%\n"
+                 "* מספר 4: 4/24 = 16.7%\n"
+                 "* מספר 5: 4/24 = 16.7%\n"
+                 "* מספר 6: 4/24 = 16.7%\n"
+                 "\n"
+                 "התפלגות התוצאות בקובייה 1 אחידה ותואמת את ההסתברות התיאורטית של 1/6 = 16.7% לכל מספר.\n"
+                 "\n"
+                 "**קובייה 2:**\n"
+                 "* מספר 1: 2/24 = 8.3%\n"
+                 "* מספר 2: 2/24 = 8.3%\n"
+                 "* מספר 3: 2/24 = 8.3%\n"
+                 "* מספר 4: 3/24 = 12.5%\n"
+                 "* מספר 5: 6/24 = 25%\n"
+                 "* מספר 6: 9/24 = 37.5%\n"
+                 "\n"
+                 "התפלגות התוצאות בקובייה 2 מראה העדפה למספרים 5 ו-6 (במיוחד ל-6), ותדירות נמוכה יותר למספרים 1-4.\n"
+                 "זוהי סטייה מההסתברות התיאורטית של קובייה הוגנת (1/6 = 16.7% לכל מספר), ולכן ייתכן כי קוביה 2 מזוייפת."
+                 "\n"
+                 "יחד עם זאת, יש לשים לב כי לא באמת נוכל לקבוע זאת בוודאות וזוהי רק השערה שמסתמכת על 20 הטלות בלבד."
+                 )
+    elif check_button4 and not st.session_state.q4_show_solution_dice:
+        st.error("לא מדויק. נסו שוב!")
 
     # Question 5
     st.markdown("""
@@ -534,47 +731,105 @@ with col1:
         </div>
     """, unsafe_allow_html=True)
 
-    user_answer = st.number_input(
+    user_answer5 = st.number_input(
         "הכניסו את תשובתכם באחוזים:",
         min_value=0.0,
         max_value=100.0,
         step=0.1,
-        key="q5"
+        key="q5_dice"
     )
 
-    if st.button("בדיקת תשובה", key="check5"):
+
+    # Function to check answer and update attempts
+    def check_answer5_dice():
+        if st.session_state.q5_attempts_dice < 10:
+            st.session_state.q5_attempts_dice += 1
+
         correct_answer = 19.43
-        if abs(user_answer - correct_answer) == 0:
-            st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer}%."
-            "\n"
-            "\n"
-            "**הסבר:**"
-            "\n"
-            "נחשב לפי התדירויות היחסיות שחישבנו בשאלה הקודמת:" 
-            "\n"
-            "* עבור סכום 6:" 
-            "\n"
-            "  * תוצאה (1,5): P(1 בקובייה 1) × P(5 בקובייה 2) = 8.33% ×  25.00% = 2.08% \n"
-            "  *  תוצאה (2,4): P(2 בקובייה 1) × P(4 בקובייה 2) = 8.33% × 12.50% = 1.04% \n"
-            "  *  תוצאה (3,3): P(3 בקובייה 1) × P(3 בקובייה 2) = 8.33% × 8.33% = 0.69% \n"
-            "  *  תוצאה (4,2): P(4 בקובייה 1) × P(2 בקובייה 2) = 12.50% × 8.33% = 1.04% \n"
-            "  *  תוצאה (5,1): P(5 בקובייה 1) × P(1 בקובייה 2) = 25.00% × 8.33% = 2.08% \n"
-            "\n"
-            "  סכום ההסתברויות עבור סכום 6:" 
-            "\n"
-            "  2.08% + 1.04% + 0.69% + 1.04% + 2.08% = 6.93% \n"
-            "\n"
-            "* עבור סכום 9:" 
-            "\n"
-            "  *  תוצאה (3,6): P(3 בקובייה 1) × P(6 בקובייה 2) = 8.33% × 37.50% = 3.12% \n"
-            "  *  תוצאה (4,5): P(4 בקובייה 1) × P(5 בקובייה 2) = 12.50% × 25.00% = 3.13% \n"
-            "  *  תוצאה (5,4): P(5 בקובייה 1) × P(4 בקובייה 2) = 25.00% × 12.50% = 3.13% \n"
-            "  *  תוצאה (6,3): P(6 בקובייה 1) × P(3 בקובייה 2) = 37.50% × 8.33% = 3.12% \n"
-            "\n"
-            "  סכום ההסתברויות עבור סכום 9:" 
-            "  3.12% + 3.13% + 3.13% + 3.12% = 12.50% \n"
-            "\n"
-            "סכום כל ההסתברויות: 6.93% + 12.50% = 19.43% \n"
-                       )
-        else:
-            st.error("לא מדויק. נסו שוב!")
+        if abs(user_answer5 - correct_answer) == 0:
+            st.session_state.q5_show_solution_dice = True
+
+
+    # Display remaining attempts based on current session state
+    if st.session_state.q5_show_solution_dice:
+        st.write("התשובה נכונה!")
+    elif st.session_state.q5_attempts_dice >= 10:
+        st.write("לא נותרו ניסיונות")
+    else:
+        remaining = 10 - st.session_state.q5_attempts_dice
+        st.write(f"נותרו {remaining} ניסיונות")
+
+    # Create the check button and link it to the function
+    check_button5 = st.button("בדיקת תשובה", key="check5_dice",
+                              disabled=st.session_state.q5_attempts_dice >= 10 or st.session_state.q5_show_solution_dice,
+                              on_click=check_answer5_dice)
+
+    # Handle displaying solution or error based on attempt outcome
+    correct_answer = 19.43
+    if st.session_state.q5_show_solution_dice:
+        st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer}%."
+                   "\n"
+                   "\n"
+                   "**הסבר:**"
+                   "\n"
+                   "נחשב לפי התדירויות היחסיות שחישבנו בשאלה הקודמת:"
+                   "\n"
+                   "* עבור סכום 6:"
+                   "\n"
+                   "  * תוצאה (1,5): P(1 בקובייה 1) × P(5 בקובייה 2) = 8.33% ×  25.00% = 2.08% \n"
+                   "  *  תוצאה (2,4): P(2 בקובייה 1) × P(4 בקובייה 2) = 8.33% × 12.50% = 1.04% \n"
+                   "  *  תוצאה (3,3): P(3 בקובייה 1) × P(3 בקובייה 2) = 8.33% × 8.33% = 0.69% \n"
+                   "  *  תוצאה (4,2): P(4 בקובייה 1) × P(2 בקובייה 2) = 12.50% × 8.33% = 1.04% \n"
+                   "  *  תוצאה (5,1): P(5 בקובייה 1) × P(1 בקובייה 2) = 25.00% × 8.33% = 2.08% \n"
+                   "\n"
+                   "  סכום ההסתברויות עבור סכום 6:"
+                   "\n"
+                   "  2.08% + 1.04% + 0.69% + 1.04% + 2.08% = 6.93% \n"
+                   "\n"
+                   "* עבור סכום 9:"
+                   "\n"
+                   "  *  תוצאה (3,6): P(3 בקובייה 1) × P(6 בקובייה 2) = 8.33% × 37.50% = 3.12% \n"
+                   "  *  תוצאה (4,5): P(4 בקובייה 1) × P(5 בקובייה 2) = 12.50% × 25.00% = 3.13% \n"
+                   "  *  תוצאה (5,4): P(5 בקובייה 1) × P(4 בקובייה 2) = 25.00% × 12.50% = 3.13% \n"
+                   "  *  תוצאה (6,3): P(6 בקובייה 1) × P(3 בקובייה 2) = 37.50% × 8.33% = 3.12% \n"
+                   "\n"
+                   "  סכום ההסתברויות עבור סכום 9:"
+                   "  3.12% + 3.13% + 3.13% + 3.12% = 12.50% \n"
+                   "\n"
+                   "סכום כל ההסתברויות: 6.93% + 12.50% = 19.43% \n"
+                   )
+    elif st.session_state.q5_attempts_dice >= 10:
+        st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
+                 "\n"
+                 f"התשובה הנכונה היא {correct_answer}%. \n"
+                 "\n"
+                 "**הסבר:**"
+                 "\n"
+                 "נחשב לפי התדירויות היחסיות שחישבנו בשאלה הקודמת:"
+                 "\n"
+                 "* עבור סכום 6:"
+                 "\n"
+                 "  * תוצאה (1,5): P(1 בקובייה 1) × P(5 בקובייה 2) = 8.33% ×  25.00% = 2.08% \n"
+                 "  *  תוצאה (2,4): P(2 בקובייה 1) × P(4 בקובייה 2) = 8.33% × 12.50% = 1.04% \n"
+                 "  *  תוצאה (3,3): P(3 בקובייה 1) × P(3 בקובייה 2) = 8.33% × 8.33% = 0.69% \n"
+                 "  *  תוצאה (4,2): P(4 בקובייה 1) × P(2 בקובייה 2) = 12.50% × 8.33% = 1.04% \n"
+                 "  *  תוצאה (5,1): P(5 בקובייה 1) × P(1 בקובייה 2) = 25.00% × 8.33% = 2.08% \n"
+                 "\n"
+                 "  סכום ההסתברויות עבור סכום 6:"
+                 "\n"
+                 "  2.08% + 1.04% + 0.69% + 1.04% + 2.08% = 6.93% \n"
+                 "\n"
+                 "* עבור סכום 9:"
+                 "\n"
+                 "  *  תוצאה (3,6): P(3 בקובייה 1) × P(6 בקובייה 2) = 8.33% × 37.50% = 3.12% \n"
+                 "  *  תוצאה (4,5): P(4 בקובייה 1) × P(5 בקובייה 2) = 12.50% × 25.00% = 3.13% \n"
+                 "  *  תוצאה (5,4): P(5 בקובייה 1) × P(4 בקובייה 2) = 25.00% × 12.50% = 3.13% \n"
+                 "  *  תוצאה (6,3): P(6 בקובייה 1) × P(3 בקובייה 2) = 37.50% × 8.33% = 3.12% \n"
+                 "\n"
+                 "  סכום ההסתברויות עבור סכום 9:"
+                 "  3.12% + 3.13% + 3.13% + 3.12% = 12.50% \n"
+                 "\n"
+                 "סכום כל ההסתברויות: 6.93% + 12.50% = 19.43% \n"
+                 )
+    elif check_button5 and not st.session_state.q5_show_solution_dice:
+        st.error("לא מדויק. נסו שוב!")

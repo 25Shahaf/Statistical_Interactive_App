@@ -220,13 +220,13 @@ with col1:
         <div class='practice-section'>
         <h4>נתונים:</h4>
         הרדיוס של כל אחד מהעיגולים על לוח המטרה:
-        
+
         $ [cm] 12 = R(A)$
-        
+
         $ [cm] 30 = R(B)$
-        
+
         $ [cm] 55 = R(C)$
-        
+
         * את התשובות יש להזין באחוזים בדיוק של 2 ספרות אחרי הנקודה (%XX.xx).
         </div>
     """, unsafe_allow_html=True)
@@ -236,10 +236,30 @@ with col2:
     fig_default = draw_target(radius_a_default, radius_b_default)
     st.pyplot(fig_default)
 
+# Initialize session state for attempt counters
+if 'q1_attempts' not in st.session_state:
+    st.session_state.q1_attempts = 0
+if 'q2_attempts' not in st.session_state:
+    st.session_state.q2_attempts = 0
+if 'q3_attempts' not in st.session_state:
+    st.session_state.q3_attempts = 0
+if 'q4_attempts' not in st.session_state:
+    st.session_state.q4_attempts = 0
+
+# Initialize session state for showing solutions
+if 'q1_show_solution' not in st.session_state:
+    st.session_state.q1_show_solution = False
+if 'q2_show_solution' not in st.session_state:
+    st.session_state.q2_show_solution = False
+if 'q3_show_solution' not in st.session_state:
+    st.session_state.q3_show_solution = False
+if 'q4_show_solution' not in st.session_state:
+    st.session_state.q4_show_solution = False
+
 col1, col2 = st.columns(2)
 
 with col1:
-    # Qurstion 1
+    # Question 1
     st.markdown("""
         <div class='question-box'>
         <h3>שאלה 1️⃣</h3>
@@ -255,14 +275,45 @@ with col1:
         key="q1"
     )
 
-    if st.button("בדיקת תשובה", key="check1"):
+
+    # Create a function to update attempts when the button is clicked
+    def check_answer1():
+        if st.session_state.q1_attempts < 10:
+            st.session_state.q1_attempts += 1
+
         correct_answer = 4.76
         if user_answer1 == correct_answer:
-            st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer}%. \n"
-                       "\n"
-                       f"**הסבר:** ההסתברות לפגיעה באזור A נקבעת על פי יחס השטחים בין אזור A לכל לוח המטרה.")
-        else:
-            st.error("לא מדויק. נסו שוב!")
+            st.session_state.q1_show_solution = True
+
+
+    # Display remaining attempts based on current session state
+    if st.session_state.q1_show_solution:
+        st.write("התשובה נכונה!")
+    elif st.session_state.q1_attempts >= 10:
+        st.write("לא נותרו ניסיונות")
+    else:
+        remaining = 10 - st.session_state.q1_attempts
+        st.write(f"נותרו {remaining} ניסיונות")
+
+    # Create the check button and link it to the function
+    check_button1 = st.button("בדיקת תשובה", key="check1",
+                              disabled=st.session_state.q1_attempts >= 10 or st.session_state.q1_show_solution,
+                              on_click=check_answer1)
+
+    # Handle displaying solution or error based on attempt outcome
+    correct_answer = 4.76
+    if st.session_state.q1_show_solution:
+        st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer}%. \n"
+                   "\n"
+                   f"**הסבר:** ההסתברות לפגיעה באזור A נקבעת על פי יחס השטחים בין אזור A לכל לוח המטרה.")
+    elif st.session_state.q1_attempts >= 10:
+        st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
+                 "\n"
+                 f"התשובה הנכונה היא {correct_answer}%. \n"
+                 "\n"
+                 f"**הסבר:** ההסתברות לפגיעה באזור A נקבעת על פי יחס השטחים בין אזור A לכל לוח המטרה.")
+    elif check_button1 and not st.session_state.q1_show_solution:
+        st.error("לא מדויק. נסו שוב!")
 
     # Question 2
     st.markdown("""
@@ -280,14 +331,45 @@ with col1:
         key="q2"
     )
 
-    if st.button("בדיקת תשובה", key="check2"):
+
+    # Create a function to update attempts when the button is clicked
+    def check_answer2():
+        if st.session_state.q2_attempts < 10:
+            st.session_state.q2_attempts += 1
+
         correct_answer = 42.55
         if user_answer2 == correct_answer:
-            st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.1f}%. \n"
-                       f"\n"
-                       f"**הסבר:** ההסתברות לפגיעה באזור B נקבעת על פי יחס השטחים בין אזור B לכל לוח המטרה. השטח של אזור B גדל ברבע מהשטח המקורי של אזור C. חלוקה בין השטח החדש של אזור B לשטח הכולל של לוח המטרה (שנשמר זהה) מניבה את התוצאה הנכונה.")
-        else:
-            st.error("לא מדויק. נסו שוב!")
+            st.session_state.q2_show_solution = True
+
+
+    # Display remaining attempts based on current session state
+    if st.session_state.q2_show_solution:
+        st.write("התשובה נכונה!")
+    elif st.session_state.q2_attempts >= 10:
+        st.write("לא נותרו ניסיונות")
+    else:
+        remaining = 10 - st.session_state.q2_attempts
+        st.write(f"נותרו {remaining} ניסיונות")
+
+    # Create the check button and link it to the function
+    check_button2 = st.button("בדיקת תשובה", key="check2",
+                              disabled=st.session_state.q2_attempts >= 10 or st.session_state.q2_show_solution,
+                              on_click=check_answer2)
+
+    # Handle displaying solution or error based on attempt outcome
+    correct_answer = 42.55
+    if st.session_state.q2_show_solution:
+        st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.2f}%. \n"
+                   f"\n"
+                   f"**הסבר:** ההסתברות לפגיעה באזור B נקבעת על פי יחס השטחים בין אזור B לכל לוח המטרה. השטח של אזור B גדל ברבע מהשטח המקורי של אזור C. חלוקה בין השטח החדש של אזור B לשטח הכולל של לוח המטרה (שנשמר זהה) מניבה את התוצאה הנכונה.")
+    elif st.session_state.q2_attempts >= 10:
+        st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
+                 "\n"
+                 f"התשובה הנכונה היא {correct_answer:.2f}%. \n"
+                 "\n"
+                 f"**הסבר:** ההסתברות לפגיעה באזור B נקבעת על פי יחס השטחים בין אזור B לכל לוח המטרה. השטח של אזור B גדל ברבע מהשטח המקורי של אזור C. חלוקה בין השטח החדש של אזור B לשטח הכולל של לוח המטרה (שנשמר זהה) מניבה את התוצאה הנכונה.")
+    elif check_button2 and not st.session_state.q2_show_solution:
+        st.error("לא מדויק. נסו שוב!")
 
     # Question 3
     st.markdown("""
@@ -305,21 +387,57 @@ with col1:
         key="q3"
     )
 
-    if st.button("בדיקת תשובה", key="check3"):
+
+    # Create a function to update attempts when the button is clicked
+    def check_answer3():
+        if st.session_state.q3_attempts < 10:
+            st.session_state.q3_attempts += 1
+
         correct_answer = 16
         if user_answer3 == correct_answer:
-            col1, col2 = st.columns(2)
-            with col1:
-                st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.0f}%. \n"
-                           "\n"
-                           f"**הסבר:** כאשר ידוע שהחץ פגע באזור A או B, מרחב המדגם מצטמצם לאזורים A ו-B בלבד ולכן ההסתברות לפגיעה באזור A משתנה. חלוקה בין שטח אזור A לסכום השטחים של אזור A ו-B (מרחב המדגם החדש) מניבה את התוצאה הנכונה.")
-            with col2:
-                with col2:
-                    radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
-                    fig_reduced = draw_target(radius_a_default, radius_b_default, radius_c=radius_b_default)
-                    st.pyplot(fig_reduced)
-        else:
-            st.error("לא מדויק. נסו שוב!")
+            st.session_state.q3_show_solution = True
+
+
+    # Display remaining attempts based on current session state
+    if st.session_state.q3_show_solution:
+        st.write("התשובה נכונה!")
+    elif st.session_state.q3_attempts >= 10:
+        st.write("לא נותרו ניסיונות")
+    else:
+        remaining = 10 - st.session_state.q3_attempts
+        st.write(f"נותרו {remaining} ניסיונות")
+
+    # Create the check button and link it to the function
+    check_button3 = st.button("בדיקת תשובה", key="check3",
+                              disabled=st.session_state.q3_attempts >= 10 or st.session_state.q3_show_solution,
+                              on_click=check_answer3)
+
+    # Handle displaying solution or error based on attempt outcome
+    correct_answer = 16
+    if st.session_state.q3_show_solution:
+        col1, col2 = st.columns(2)
+        with col1:
+            st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.0f}%. \n"
+                       "\n"
+                       f"**הסבר:** כאשר ידוע שהחץ פגע באזור A או B, מרחב המדגם מצטמצם לאזורים A ו-B בלבד ולכן ההסתברות לפגיעה באזור A משתנה. חלוקה בין שטח אזור A לסכום השטחים של אזור A ו-B (מרחב המדגם החדש) מניבה את התוצאה הנכונה.")
+        with col2:
+            radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
+            fig_reduced = draw_target(radius_a_default, radius_b_default, radius_c=radius_b_default)
+            st.pyplot(fig_reduced)
+    elif st.session_state.q3_attempts >= 10:
+        col1, col2 = st.columns(2)
+        with col1:
+            st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
+                     "\n"
+                     f"התשובה הנכונה היא {correct_answer:.0f}%. \n"
+                     "\n"
+                     f"**הסבר:** כאשר ידוע שהחץ פגע באזור A או B, מרחב המדגם מצטמצם לאזורים A ו-B בלבד ולכן ההסתברות לפגיעה באזור A משתנה. חלוקה בין שטח אזור A לסכום השטחים של אזור A ו-B (מרחב המדגם החדש) מניבה את התוצאה הנכונה.")
+        with col2:
+            radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
+            fig_reduced = draw_target(radius_a_default, radius_b_default, radius_c=radius_b_default)
+            st.pyplot(fig_reduced)
+    elif check_button3 and not st.session_state.q3_show_solution:
+        st.error("לא מדויק. נסו שוב!")
 
     # Question 4
     st.markdown("""
@@ -339,19 +457,57 @@ with col1:
         key="q4"
     )
 
-    if st.button("בדיקת תשובה", key="check4"):
+    # Create a function to update attempts when the button is clicked
+    def check_answer4():
+        if st.session_state.q4_attempts < 10:
+            st.session_state.q4_attempts += 1
+
         correct_answer = 5.76  # (12/50)^2 * 100
         if abs(user_answer4 - correct_answer) < 0.1:
-            col1, col2 = st.columns(2)
-            with col1:
-                st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.2f}%. \n"
-                           "\n"
-                           f"**הסבר:** כאשר הריבוע משיק למעגל החיצוני, צלע הריבוע שווה לרדיוס המעגל החיצוני כפול √2. "
-                           f"היחס בין שטח מעגל A לשטח הריבוע הוא (12/50)². "
-                           f"לכן ההסתברות לפגוע באזור A היא 5.76%.")
-            with col2:
-                radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
-                fig_reduced = draw_target(radius_a_default, radius_b_default, show_square=True)
-                st.pyplot(fig_reduced)
-        else:
-            st.error("לא מדויק. נסו שוב!")
+            st.session_state.q4_show_solution = True
+
+
+    # Display remaining attempts based on current session state
+    if st.session_state.q4_show_solution:
+        st.write("התשובה נכונה!")
+    elif st.session_state.q4_attempts >= 10:
+        st.write("לא נותרו ניסיונות")
+    else:
+        remaining = 10 - st.session_state.q4_attempts
+        st.write(f"נותרו {remaining} ניסיונות")
+
+    # Create the check button and link it to the function
+    check_button4 = st.button("בדיקת תשובה", key="check4",
+                              disabled=st.session_state.q4_attempts >= 10 or st.session_state.q4_show_solution,
+                              on_click=check_answer4)
+
+    # Handle displaying solution or error based on attempt outcome
+    correct_answer = 5.76  # (12/50)^2 * 100
+    if st.session_state.q4_show_solution:
+        col1, col2 = st.columns(2)
+        with col1:
+            st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.2f}%. \n"
+                       "\n"
+                       f"**הסבר:** כאשר הריבוע משיק למעגל החיצוני, צלע הריבוע שווה לרדיוס המעגל החיצוני כפול √2. "
+                       f"היחס בין שטח מעגל A לשטח הריבוע הוא (12/50)². "
+                       f"לכן ההסתברות לפגוע באזור A היא 5.76%.")
+        with col2:
+            radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
+            fig_reduced = draw_target(radius_a_default, radius_b_default, show_square=True)
+            st.pyplot(fig_reduced)
+    elif st.session_state.q4_attempts >= 10:
+        col1, col2 = st.columns(2)
+        with col1:
+            st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
+                     "\n"
+                     f"התשובה הנכונה היא {correct_answer:.2f}%. \n"
+                     "\n"
+                     f"**הסבר:** כאשר הריבוע משיק למעגל החיצוני, צלע הריבוע שווה לרדיוס המעגל החיצוני כפול √2. "
+                     f"היחס בין שטח מעגל A לשטח הריבוע הוא (12/50)². "
+                     f"לכן ההסתברות לפגוע באזור A היא 5.76%.")
+        with col2:
+            radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
+            fig_reduced = draw_target(radius_a_default, radius_b_default, show_square=True)
+            st.pyplot(fig_reduced)
+    elif check_button4 and not st.session_state.q4_show_solution:
+        st.error("לא מדויק. נסו שוב!")
