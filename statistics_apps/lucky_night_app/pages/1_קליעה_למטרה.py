@@ -287,12 +287,15 @@ with col1:
 
     # Create a function to check the answer and update attempts when the button is clicked
     def check_answer1_target():
-        if st.session_state.q1_attempts_target < 10:
-            st.session_state.q1_attempts_target += 1
-
         correct_answer = 4.76
+
+        # First check if the answer is correct
         if abs(user_answer1 - correct_answer) < 0.01:
             st.session_state.q1_show_solution_target = True
+
+        # Then increment the attempts counter if we haven't reached max attempts
+        if st.session_state.q1_attempts_target < 10 and not st.session_state.q1_show_solution_target:
+            st.session_state.q1_attempts_target += 1
 
 
     # Create the check button and link it to the function
@@ -343,12 +346,15 @@ with col1:
 
     # Create a function to check the answer and update attempts when the button is clicked
     def check_answer2_target():
-        if st.session_state.q2_attempts_target < 10:
-            st.session_state.q2_attempts_target += 1
-
         correct_answer = 42.55
+
+        # First check if the answer is correct
         if abs(user_answer2 - correct_answer) < 0.01:
             st.session_state.q2_show_solution_target = True
+
+        # Then increment the attempts counter if we haven't reached max attempts
+        if st.session_state.q2_attempts_target < 10 and not st.session_state.q2_show_solution_target:
+            st.session_state.q2_attempts_target += 1
 
 
     # Create the check button and link it to the function
@@ -399,12 +405,15 @@ with col1:
 
     # Create a function to check the answer and update attempts when the button is clicked
     def check_answer3_target():
-        if st.session_state.q3_attempts_target < 10:
-            st.session_state.q3_attempts_target += 1
-
         correct_answer = 16
+
+        # First check if the answer is correct
         if abs(user_answer3 - correct_answer) < 0.01:
             st.session_state.q3_show_solution_target = True
+
+        # Then increment the attempts counter if we haven't reached max attempts
+        if st.session_state.q3_attempts_target < 10 and not st.session_state.q3_show_solution_target:
+            st.session_state.q3_attempts_target += 1
 
 
     # Create the check button and link it to the function
@@ -469,12 +478,15 @@ with col1:
 
     # Create a function to check the answer and update attempts when the button is clicked
     def check_answer4_target():
-        if st.session_state.q4_attempts_target < 10:
-            st.session_state.q4_attempts_target += 1
-
         correct_answer = 5.76  # (12/50)^2 * 100
+
+        # First check if the answer is correct
         if abs(user_answer4 - correct_answer) < 0.1:
             st.session_state.q4_show_solution_target = True
+
+        # Then increment the attempts counter if we haven't reached max attempts
+        if st.session_state.q4_attempts_target < 10 and not st.session_state.q4_show_solution_target:
+            st.session_state.q4_attempts_target += 1
 
 
     # Create the check button and link it to the function
@@ -489,8 +501,8 @@ with col1:
         with col1:
             st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.2f}%. \n"
                        "\n"
-                       f"**הסבר:** כאשר הריבוע משיק למעגל החיצוני, צלע הריבוע שווה לרדיוס המעגל החיצוני כפול √2. "
-                       f"היחס בין שטח מעגל A לשטח הריבוע הוא (12/50)². "
+                       f"**הסבר:** כאשר הריבוע משיק למעגל החיצוני, צלע הריבוע שווה לרדיוס המעגל החיצוני כפול 2√. "
+                       f"היחס בין שטח מעגל A לשטח הריבוע הוא ²(12/50). "
                        f"לכן ההסתברות לפגוע באזור A היא 5.76%.")
         with col2:
             radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
@@ -503,8 +515,8 @@ with col1:
                      "\n"
                      f"התשובה הנכונה היא {correct_answer:.2f}%. \n"
                      "\n"
-                     f"**הסבר:** כאשר הריבוע משיק למעגל החיצוני, צלע הריבוע שווה לרדיוס המעגל החיצוני כפול √2. "
-                     f"היחס בין שטח מעגל A לשטח הריבוע הוא (12/50)². "
+                     f"**הסבר:** כאשר הריבוע משיק למעגל החיצוני, צלע הריבוע שווה לרדיוס המעגל החיצוני כפול 2√. "
+                     f"היחס בין שטח מעגל A לשטח הריבוע הוא ²(12/50). "
                      f"לכן ההסתברות לפגוע באזור A היא 5.76%.")
         with col2:
             radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
