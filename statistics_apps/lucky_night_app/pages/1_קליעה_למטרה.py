@@ -228,6 +228,8 @@ with col1:
         $ [cm] 55 = R(C)$
 
         * את התשובות יש להזין באחוזים בדיוק של 2 ספרות אחרי הנקודה (%XX.xx).
+        
+        * לכל שאלה יש 10 ניסיונות.
         </div>
     """, unsafe_allow_html=True)
 
@@ -236,30 +238,18 @@ with col2:
     fig_default = draw_target(radius_a_default, radius_b_default)
     st.pyplot(fig_default)
 
-# Initialize session state for attempt counters
-if 'q1_attempts_target' not in st.session_state:
-    st.session_state.q1_attempts_target = 0
-if 'q2_attempts_target' not in st.session_state:
-    st.session_state.q2_attempts_target = 0
-if 'q3_attempts_target' not in st.session_state:
-    st.session_state.q3_attempts_target = 0
-if 'q4_attempts_target' not in st.session_state:
-    st.session_state.q4_attempts_target = 0
+# Definition of correct answers
+correct_answers = {
+    "q1": 4.76,
+    "q2": 42.55,
+    "q3": 16.0,
+    "q4": 5.76
+}
 
-# Initialize session state for showing solutions
-if 'q1_show_solution_target' not in st.session_state:
-    st.session_state.q1_show_solution_target = False
-if 'q2_show_solution_target' not in st.session_state:
-    st.session_state.q2_show_solution_target = False
-if 'q3_show_solution_target' not in st.session_state:
-    st.session_state.q3_show_solution_target = False
-if 'q4_show_solution_target' not in st.session_state:
-    st.session_state.q4_show_solution_target = False
-
+# Question 1
 col1, col2 = st.columns(2)
 
 with col1:
-    # Question 1
     st.markdown("""
         <div class='question-box'>
         <h3>שאלה 1️⃣</h3>
@@ -267,56 +257,64 @@ with col1:
         </div>
     """, unsafe_allow_html=True)
 
-    user_answer1 = st.number_input(
-        "הכניסו את תשובתכם באחוזים:",
-        min_value=0.0,
-        max_value=100.0,
-        step=0.1,
-        key="q1_target"
-    )
-    correct_answer1 = 4.76
+    # Get the current attempt count from URL parameters
+    q1_attempt_count = int(st.query_params.get("q1_attempts", "0"))
 
-    # Display remaining attempts based on current session state
-    if st.session_state.q1_show_solution_target:
-        st.write("התשובה נכונה!")
-    elif st.session_state.q1_attempts_target >= 10:
-        st.write("לא נותרו ניסיונות")
-    else:
-        remaining = 10 - st.session_state.q1_attempts_target
-        st.write(f"נותרו {remaining} ניסיונות")
+    # Use a form for question 1
+    with st.form(key="question1_form"):
+        q1_answer = st.number_input(
+            "הכניסו את תשובתכם באחוזים:",
+            min_value=0.0,
+            max_value=100.0,
+            step=0.1,
+            key="q1_input"
+        )
 
+        # Submit button (disabled if max attempts reached)
+        q1_submit = st.form_submit_button(
+            "בדיקת תשובה",
+            disabled=(q1_attempt_count >= 10 or st.query_params.get("q1_status") == "success")
+        )
 
-    # Create a function to check the answer and update attempts when the button is clicked
-    def check_answer1_target():
-        # First check if the answer is correct
-        if abs(user_answer1 - correct_answer1) < 0.1:
-            st.session_state.q1_show_solution_target = True
+        # Process form submission inside the form
+        if q1_submit:
+            # Check if answer is correct
+            is_correct = abs(q1_answer - correct_answers["q1"]) < 0.1
 
-        # Then increment the attempts counter if we haven't reached max attempts
-        if st.session_state.q1_attempts_target < 10 and not st.session_state.q1_show_solution_target:
-            st.session_state.q1_attempts_target += 1
+            if is_correct:
+                st.query_params["q1_status"] = "success"
+            else:
+                # Increment attempt counter
+                q1_attempt_count += 1
 
+                # Update URL parameter
+                st.query_params["q1_attempts"] = str(q1_attempt_count)
 
-    # Create the check button and link it to the function
-    check_button1 = st.button("בדיקת תשובה", key="check1_target",
-                              disabled=st.session_state.q1_attempts_target >= 10 or st.session_state.q1_show_solution_target,
-                              on_click=check_answer1_target)
+                if q1_attempt_count >= 10:
+                    st.query_params["q1_status"] = "failed"
+                else:
+                    st.query_params["q1_status"] = "trying"
 
-    # Handle displaying solution or error based on attempt outcome
-    if st.session_state.q1_show_solution_target:
-        st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer1}%. \n"
-                   "\n"
-                   f"**הסבר:** ההסתברות לפגיעה באזור A נקבעת על פי יחס השטחים בין אזור A לכל לוח המטרה.")
-    elif st.session_state.q1_attempts_target >= 10:
-        st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
-                 "\n"
-                 f"התשובה הנכונה היא {correct_answer1}%. \n"
-                 "\n"
-                 f"**הסבר:** ההסתברות לפגיעה באזור A נקבעת על פי יחס השטחים בין אזור A לכל לוח המטרה.")
-    elif check_button1 and not st.session_state.q1_show_solution_target:
-        st.error("לא מדויק. נסו שוב!")
+        # Check if we need to show a previous result
+        if "q1_status" in st.query_params:
+            status = st.query_params["q1_status"]
+            if status == "success":
+                st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answers['q1']}%. \n"
+                           "\n"
+                           f"**הסבר:** ההסתברות לפגיעה באזור A נקבעת על פי יחס השטחים בין אזור A לכל לוח המטרה.")
+            elif status == "failed":
+                st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
+                         "\n"
+                         f"התשובה הנכונה היא {correct_answers['q1']}%. \n"
+                         "\n"
+                         f"**הסבר:** ההסתברות לפגיעה באזור A נקבעת על פי יחס השטחים בין אזור A לכל לוח המטרה.")
+            elif status == "trying":
+                current_attempts = int(st.query_params.get("q1_attempts", "0"))
+                remaining = 10 - current_attempts
+                st.error(f"לא מדויק. נסו שוב! נותרו {remaining} ניסיונות.")
 
-    # Question 2
+# Question 2
+with col1:
     st.markdown("""
         <div class='question-box'>
         <h3>שאלה 2️⃣</h3>
@@ -324,56 +322,64 @@ with col1:
         </div>
     """, unsafe_allow_html=True)
 
-    user_answer2 = st.number_input(
-        "הכניסו את תשובתכם באחוזים:",
-        min_value=0.0,
-        max_value=100.0,
-        step=0.1,
-        key="q2_target"
-    )
-    correct_answer2 = 42.55
+    # Get the current attempt count from URL parameters
+    q2_attempt_count = int(st.query_params.get("q2_attempts", "0"))
 
-    # Display remaining attempts based on current session state
-    if st.session_state.q2_show_solution_target:
-        st.write("התשובה נכונה!")
-    elif st.session_state.q2_attempts_target >= 10:
-        st.write("לא נותרו ניסיונות")
-    else:
-        remaining = 10 - st.session_state.q2_attempts_target
-        st.write(f"נותרו {remaining} ניסיונות")
+    # Use a form for question 2
+    with st.form(key="question2_form"):
+        q2_answer = st.number_input(
+            "הכניסו את תשובתכם באחוזים:",
+            min_value=0.0,
+            max_value=100.0,
+            step=0.1,
+            key="q2_input"
+        )
 
+        # Submit button (disabled if max attempts reached)
+        q2_submit = st.form_submit_button(
+            "בדיקת תשובה",
+            disabled=(q2_attempt_count >= 10 or st.query_params.get("q2_status") == "success")
+        )
 
-    # Create a function to check the answer and update attempts when the button is clicked
-    def check_answer2_target():
-        # First check if the answer is correct
-        if abs(user_answer2 - correct_answer2) < 0.1:
-            st.session_state.q2_show_solution_target = True
+        # Process form submission inside the form
+        if q2_submit:
+            # Check if answer is correct
+            is_correct = abs(q2_answer - correct_answers["q2"]) < 0.1
 
-        # Then increment the attempts counter if we haven't reached max attempts
-        if st.session_state.q2_attempts_target < 10 and not st.session_state.q2_show_solution_target:
-            st.session_state.q2_attempts_target += 1
+            if is_correct:
+                st.query_params["q2_status"] = "success"
+            else:
+                # Increment attempt counter
+                q2_attempt_count += 1
 
+                # Update URL parameter
+                st.query_params["q2_attempts"] = str(q2_attempt_count)
 
-    # Create the check button and link it to the function
-    check_button2 = st.button("בדיקת תשובה", key="check2_target",
-                              disabled=st.session_state.q2_attempts_target >= 10 or st.session_state.q2_show_solution_target,
-                              on_click=check_answer2_target)
+                if q2_attempt_count >= 10:
+                    st.query_params["q2_status"] = "failed"
+                else:
+                    st.query_params["q2_status"] = "trying"
 
-    # Handle displaying solution or error based on attempt outcome
-    if st.session_state.q2_show_solution_target:
-        st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer2:.2f}%. \n"
-                   f"\n"
-                   f"**הסבר:** ההסתברות לפגיעה באזור B נקבעת על פי יחס השטחים בין אזור B לכל לוח המטרה. השטח של אזור B גדל ברבע מהשטח המקורי של אזור C. חלוקה בין השטח החדש של אזור B לשטח הכולל של לוח המטרה (שנשמר זהה) מניבה את התוצאה הנכונה.")
-    elif st.session_state.q2_attempts_target >= 10:
-        st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
-                 "\n"
-                 f"התשובה הנכונה היא {correct_answer2:.2f}%. \n"
-                 "\n"
-                 f"**הסבר:** ההסתברות לפגיעה באזור B נקבעת על פי יחס השטחים בין אזור B לכל לוח המטרה. השטח של אזור B גדל ברבע מהשטח המקורי של אזור C. חלוקה בין השטח החדש של אזור B לשטח הכולל של לוח המטרה (שנשמר זהה) מניבה את התוצאה הנכונה.")
-    elif check_button2 and not st.session_state.q2_show_solution_target:
-        st.error("לא מדויק. נסו שוב!")
+        # Check if we need to show a previous result
+        if "q2_status" in st.query_params:
+            status = st.query_params["q2_status"]
+            if status == "success":
+                st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answers['q2']:.2f}%. \n"
+                           f"\n"
+                           f"**הסבר:** ההסתברות לפגיעה באזור B נקבעת על פי יחס השטחים בין אזור B לכל לוח המטרה. השטח של אזור B גדל ברבע מהשטח המקורי של אזור C. חלוקה בין השטח החדש של אזור B לשטח הכולל של לוח המטרה (שנשמר זהה) מניבה את התוצאה הנכונה.")
+            elif status == "failed":
+                st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
+                         "\n"
+                         f"התשובה הנכונה היא {correct_answers['q2']:.2f}%. \n"
+                         "\n"
+                         f"**הסבר:** ההסתברות לפגיעה באזור B נקבעת על פי יחס השטחים בין אזור B לכל לוח המטרה. השטח של אזור B גדל ברבע מהשטח המקורי של אזור C. חלוקה בין השטח החדש של אזור B לשטח הכולל של לוח המטרה (שנשמר זהה) מניבה את התוצאה הנכונה.")
+            elif status == "trying":
+                current_attempts = int(st.query_params.get("q2_attempts", "0"))
+                remaining = 10 - current_attempts
+                st.error(f"לא מדויק. נסו שוב! נותרו {remaining} ניסיונות.")
 
-    # Question 3
+# Question 3
+with col1:
     st.markdown("""
         <div class='question-box'>
         <h3>שאלה 3️⃣</h3>
@@ -381,68 +387,78 @@ with col1:
         </div>
     """, unsafe_allow_html=True)
 
-    user_answer3 = st.number_input(
-        "הכניסו את תשובתכם באחוזים:",
-        min_value=0.0,
-        max_value=100.0,
-        step=0.1,
-        key="q3_target"
-    )
-    correct_answer3 = 16
+    # Get the current attempt count from URL parameters
+    q3_attempt_count = int(st.query_params.get("q3_attempts", "0"))
 
-    # Display remaining attempts based on current session state
-    if st.session_state.q3_show_solution_target:
-        st.write("התשובה נכונה!")
-    elif st.session_state.q3_attempts_target >= 10:
-        st.write("לא נותרו ניסיונות")
-    else:
-        remaining = 10 - st.session_state.q3_attempts_target
-        st.write(f"נותרו {remaining} ניסיונות")
+    # Use a form for question 3
+    with st.form(key="question3_form"):
+        q3_answer = st.number_input(
+            "הכניסו את תשובתכם באחוזים:",
+            min_value=0.0,
+            max_value=100.0,
+            step=0.1,
+            key="q3_input"
+        )
 
+        # Submit button (disabled if max attempts reached)
+        q3_submit = st.form_submit_button(
+            "בדיקת תשובה",
+            disabled=(q3_attempt_count >= 10 or st.query_params.get("q3_status") == "success")
+        )
 
-    # Create a function to check the answer and update attempts when the button is clicked
-    def check_answer3_target():
-        # First check if the answer is correct
-        if abs(user_answer3 - correct_answer3) < 0.1:
-            st.session_state.q3_show_solution_target = True
+        # Process form submission inside the form
+        if q3_submit:
+            # Check if answer is correct
+            is_correct = abs(q3_answer - correct_answers["q3"]) < 0.1
 
-        # Then increment the attempts counter if we haven't reached max attempts
-        if st.session_state.q3_attempts_target < 10 and not st.session_state.q3_show_solution_target:
-            st.session_state.q3_attempts_target += 1
+            # Display result with special visualization for question 3
+            if is_correct:
+                st.query_params["q3_status"] = "success"
+            else:
+                # Increment attempt counter
+                q3_attempt_count += 1
 
+                # Update URL parameter
+                st.query_params["q3_attempts"] = str(q3_attempt_count)
 
-    # Create the check button and link it to the function
-    check_button3 = st.button("בדיקת תשובה", key="check3_target",
-                              disabled=st.session_state.q3_attempts_target >= 10 or st.session_state.q3_show_solution_target,
-                              on_click=check_answer3_target)
+                if q3_attempt_count >= 10:
+                    st.query_params["q3_status"] = "failed"
+                else:
+                    st.query_params["q3_status"] = "trying"
 
-    # Handle displaying solution or error based on attempt outcome
-    if st.session_state.q3_show_solution_target:
-        col1, col2 = st.columns(2)
-        with col1:
-            st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer3:.0f}%. \n"
-                       "\n"
-                       f"**הסבר:** כאשר ידוע שהחץ פגע באזור A או B, מרחב המדגם מצטמצם לאזורים A ו-B בלבד ולכן ההסתברות לפגיעה באזור A משתנה. חלוקה בין שטח אזור A לסכום השטחים של אזור A ו-B (מרחב המדגם החדש) מניבה את התוצאה הנכונה.")
-        with col2:
-            radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
-            fig_reduced = draw_target(radius_a_default, radius_b_default, radius_c=radius_b_default)
-            st.pyplot(fig_reduced)
-    elif st.session_state.q3_attempts_target >= 10:
-        col1, col2 = st.columns(2)
-        with col1:
-            st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
-                     "\n"
-                     f"התשובה הנכונה היא {correct_answer3:.0f}%. \n"
-                     "\n"
-                     f"**הסבר:** כאשר ידוע שהחץ פגע באזור A או B, מרחב המדגם מצטמצם לאזורים A ו-B בלבד ולכן ההסתברות לפגיעה באזור A משתנה. חלוקה בין שטח אזור A לסכום השטחים של אזור A ו-B (מרחב המדגם החדש) מניבה את התוצאה הנכונה.")
-        with col2:
-            radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
-            fig_reduced = draw_target(radius_a_default, radius_b_default, radius_c=radius_b_default)
-            st.pyplot(fig_reduced)
-    elif check_button3 and not st.session_state.q3_show_solution_target:
-        st.error("לא מדויק. נסו שוב!")
+        if "q3_status" in st.query_params:
+            status = st.query_params["q3_status"]
+            if status == "success":
+                col1_vis, col2_vis = st.columns(2)
+                with col1_vis:
+                    st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answers['q3']:.0f}%. \n"
+                               "\n"
+                               f"**הסבר:** כאשר ידוע שהחץ פגע באזור A או B, מרחב המדגם מצטמצם לאזורים A ו-B בלבד ולכן ההסתברות לפגיעה באזור A משתנה. חלוקה בין שטח אזור A לסכום השטחים של אזור A ו-B (מרחב המדגם החדש) מניבה את התוצאה הנכונה.")
 
-    # Question 4
+                with col2_vis:
+                    radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
+                    fig_reduced = draw_target(radius_a_default, radius_b_default, radius_c=radius_b_default)
+                    st.pyplot(fig_reduced)
+            elif status == "failed":
+                col1_vis, col2_vis = st.columns(2)
+                with col1_vis:
+                    st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
+                             "\n"
+                             f"התשובה הנכונה היא {correct_answers['q3']:.0f}%. \n"
+                             "\n"
+                             f"**הסבר:** כאשר ידוע שהחץ פגע באזור A או B, מרחב המדגם מצטמצם לאזורים A ו-B בלבד ולכן ההסתברות לפגיעה באזור A משתנה. חלוקה בין שטח אזור A לסכום השטחים של אזור A ו-B (מרחב המדגם החדש) מניבה את התוצאה הנכונה.")
+
+                with col2_vis:
+                    radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
+                    fig_reduced = draw_target(radius_a_default, radius_b_default, radius_c=radius_b_default)
+                    st.pyplot(fig_reduced)
+            elif status == "trying":
+                current_attempts = int(st.query_params.get("q3_attempts", "0"))
+                remaining = 10 - current_attempts
+                st.error(f"לא מדויק. נסו שוב! נותרו {remaining} ניסיונות.")
+
+# Question 4
+with col1:
     st.markdown("""
         <div class='question-box'>
         <h3>שאלה 4️⃣</h3>
@@ -452,67 +468,76 @@ with col1:
         </div>
     """, unsafe_allow_html=True)
 
-    user_answer4 = st.number_input(
-        "הכניסו את תשובתכם באחוזים:",
-        min_value=0.0,
-        max_value=100.0,
-        step=0.1,
-        key="q4_target"
-    )
-    correct_answer4 = 5.76
+    # Get the current attempt count from URL parameters
+    q4_attempt_count = int(st.query_params.get("q4_attempts", "0"))
 
-    # Display remaining attempts based on current session state
-    if st.session_state.q4_show_solution_target:
-        st.write("התשובה נכונה!")
-    elif st.session_state.q4_attempts_target >= 10:
-        st.write("לא נותרו ניסיונות")
-    else:
-        remaining = 10 - st.session_state.q4_attempts_target
-        st.write(f"נותרו {remaining} ניסיונות")
+    # Use a form for question 4
+    with st.form(key="question4_form"):
+        q4_answer = st.number_input(
+            "הכניסו את תשובתכם באחוזים:",
+            min_value=0.0,
+            max_value=100.0,
+            step=0.1,
+            key="q4_input"
+        )
 
+        # Submit button (disabled if max attempts reached)
+        q4_submit = st.form_submit_button(
+            "בדיקת תשובה",
+            disabled=(q4_attempt_count >= 10 or st.query_params.get("q4_status") == "success")
+        )
 
-    # Create a function to check the answer and update attempts when the button is clicked
-    def check_answer4_target():
-        # First check if the answer is correct
-        if abs(user_answer4 - correct_answer4) < 0.1:
-            st.session_state.q4_show_solution_target = True
+        # Process form submission inside the form
+        if q4_submit:
+            # Check if answer is correct
+            is_correct = abs(q4_answer - correct_answers["q4"]) < 0.1
 
-        # Then increment the attempts counter if we haven't reached max attempts
-        if st.session_state.q4_attempts_target < 10 and not st.session_state.q4_show_solution_target:
-            st.session_state.q4_attempts_target += 1
+            # Display result with special visualization for question 4
+            if is_correct:
+                st.query_params["q4_status"] = "success"
+            else:
+                # Increment attempt counter
+                q4_attempt_count += 1
 
+                # Update URL parameter
+                st.query_params["q4_attempts"] = str(q4_attempt_count)
 
-    # Create the check button and link it to the function
-    check_button4 = st.button("בדיקת תשובה", key="check4_target",
-                              disabled=st.session_state.q4_attempts_target >= 10 or st.session_state.q4_show_solution_target,
-                              on_click=check_answer4_target)
+                if q4_attempt_count >= 10:
+                    st.query_params["q4_status"] = "failed"
+                else:
+                    st.query_params["q4_status"] = "trying"
 
-    # Handle displaying solution or error based on attempt outcome
-    if st.session_state.q4_show_solution_target:
-        col1, col2 = st.columns(2)
-        with col1:
-            st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer4:.2f}%. \n"
-                       "\n"
-                       f"**הסבר:** כאשר הריבוע משיק למעגל החיצוני, צלע הריבוע שווה לרדיוס המעגל החיצוני כפול 2√. "
-                       f"היחס בין שטח מעגל A לשטח הריבוע הוא ²(12/50). "
-                       f"לכן ההסתברות לפגוע באזור A היא 5.76%.")
-        with col2:
-            radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
-            fig_reduced = draw_target(radius_a_default, radius_b_default, show_square=True)
-            st.pyplot(fig_reduced)
-    elif st.session_state.q4_attempts_target >= 10:
-        col1, col2 = st.columns(2)
-        with col1:
-            st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
-                     "\n"
-                     f"התשובה הנכונה היא {correct_answer4:.2f}%. \n"
-                     "\n"
-                     f"**הסבר:** כאשר הריבוע משיק למעגל החיצוני, צלע הריבוע שווה לרדיוס המעגל החיצוני כפול 2√. "
-                     f"היחס בין שטח מעגל A לשטח הריבוע הוא ²(12/50). "
-                     f"לכן ההסתברות לפגוע באזור A היא 5.76%.")
-        with col2:
-            radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
-            fig_reduced = draw_target(radius_a_default, radius_b_default, show_square=True)
-            st.pyplot(fig_reduced)
-    elif check_button4 and not st.session_state.q4_show_solution_target:
-        st.error("לא מדויק. נסו שוב!")
+        if "q4_status" in st.query_params:
+            status = st.query_params["q4_status"]
+            if status == "success":
+                col1_vis, col2_vis = st.columns(2)
+                with col1_vis:
+                    st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answers['q4']:.2f}%. \n"
+                               "\n"
+                               f"**הסבר:** כאשר הריבוע משיק למעגל החיצוני, צלע הריבוע שווה לרדיוס המעגל החיצוני כפול 2√. "
+                               f"היחס בין שטח מעגל A לשטח הריבוע הוא ²(12/50). "
+                               f"לכן ההסתברות לפגוע באזור A היא 5.76%.")
+
+                with col2_vis:
+                    radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
+                    fig_reduced = draw_target(radius_a_default, radius_b_default, show_square=True)
+                    st.pyplot(fig_reduced)
+            elif status == "failed":
+                col1_vis, col2_vis = st.columns(2)
+                with col1_vis:
+                    st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
+                             "\n"
+                             f"התשובה הנכונה היא {correct_answers['q4']:.2f}%. \n"
+                             "\n"
+                             f"**הסבר:** כאשר הריבוע משיק למעגל החיצוני, צלע הריבוע שווה לרדיוס המעגל החיצוני כפול 2√. "
+                             f"היחס בין שטח מעגל A לשטח הריבוע הוא ²(12/50). "
+                             f"לכן ההסתברות לפגוע באזור A היא 5.76%.")
+
+                with col2_vis:
+                    radius_a_default, radius_b_default = calculate_radii_from_percentages(4.76, 24.99)
+                    fig_reduced = draw_target(radius_a_default, radius_b_default, show_square=True)
+                    st.pyplot(fig_reduced)
+            elif status == "trying":
+                current_attempts = int(st.query_params.get("q4_attempts", "0"))
+                remaining = 10 - current_attempts
+                st.error(f"לא מדויק. נסו שוב! נותרו {remaining} ניסיונות.")
