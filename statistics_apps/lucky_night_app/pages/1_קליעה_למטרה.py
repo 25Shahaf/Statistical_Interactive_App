@@ -287,9 +287,9 @@ with col1:
 
 
     # Create a function to check the answer and update attempts when the button is clicked
-    def check_answer1_target(user_answer, correct_answer):
+    def check_answer1_target():
         # First check if the answer is correct
-        if abs(user_answer - correct_answer) < 0.1:
+        if abs(user_answer1 - correct_answer1) < 0.1:
             st.session_state.q1_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
@@ -300,7 +300,7 @@ with col1:
     # Create the check button and link it to the function
     check_button1 = st.button("בדיקת תשובה", key="check1_target",
                               disabled=st.session_state.q1_attempts_target >= 10 or st.session_state.q1_show_solution_target,
-                              on_click=check_answer1_target(user_answer1, correct_answer1))
+                              on_click=check_answer1_target)
 
     # Handle displaying solution or error based on attempt outcome
     if st.session_state.q1_show_solution_target:
@@ -344,9 +344,9 @@ with col1:
 
 
     # Create a function to check the answer and update attempts when the button is clicked
-    def check_answer2_target(user_answer, correct_answer):
+    def check_answer2_target():
         # First check if the answer is correct
-        if abs(user_answer - correct_answer) < 0.1:
+        if abs(user_answer2 - correct_answer2) < 0.1:
             st.session_state.q2_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
@@ -357,7 +357,7 @@ with col1:
     # Create the check button and link it to the function
     check_button2 = st.button("בדיקת תשובה", key="check2_target",
                               disabled=st.session_state.q2_attempts_target >= 10 or st.session_state.q2_show_solution_target,
-                              on_click=check_answer2_target(user_answer2, correct_answer2))
+                              on_click=check_answer2_target)
 
     # Handle displaying solution or error based on attempt outcome
     if st.session_state.q2_show_solution_target:
@@ -401,9 +401,9 @@ with col1:
 
 
     # Create a function to check the answer and update attempts when the button is clicked
-    def check_answer3_target(user_answer, correct_answer):
+    def check_answer3_target():
         # First check if the answer is correct
-        if abs(user_answer - correct_answer) < 0.1:
+        if abs(user_answer3 - correct_answer3) < 0.1:
             st.session_state.q3_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
@@ -414,7 +414,7 @@ with col1:
     # Create the check button and link it to the function
     check_button3 = st.button("בדיקת תשובה", key="check3_target",
                               disabled=st.session_state.q3_attempts_target >= 10 or st.session_state.q3_show_solution_target,
-                              on_click=check_answer3_target(user_answer3, correct_answer3))
+                              on_click=check_answer3_target)
 
     # Handle displaying solution or error based on attempt outcome
     if st.session_state.q3_show_solution_target:
@@ -472,9 +472,9 @@ with col1:
 
 
     # Create a function to check the answer and update attempts when the button is clicked
-    def check_answer4_target(user_answer, correct_answer):
+    def check_answer4_target():
         # First check if the answer is correct
-        if abs(user_answer - correct_answer) < 0.1:
+        if abs(user_answer4 - correct_answer4) < 0.1:
             st.session_state.q4_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
@@ -485,7 +485,7 @@ with col1:
     # Create the check button and link it to the function
     check_button4 = st.button("בדיקת תשובה", key="check4_target",
                               disabled=st.session_state.q4_attempts_target >= 10 or st.session_state.q4_show_solution_target,
-                              on_click=check_answer4_target(user_answer4, correct_answer4))
+                              on_click=check_answer4_target)
 
     # Handle displaying solution or error based on attempt outcome
     if st.session_state.q4_show_solution_target:
