@@ -274,6 +274,7 @@ with col1:
         step=0.1,
         key="q1_target"
     )
+    correct_answer1 = 4.76
 
     # Display remaining attempts based on current session state
     if st.session_state.q1_show_solution_target:
@@ -286,11 +287,9 @@ with col1:
 
 
     # Create a function to check the answer and update attempts when the button is clicked
-    def check_answer1_target():
-        correct_answer1 = 4.76
-
+    def check_answer1_target(user_answer, correct_answer):
         # First check if the answer is correct
-        if user_answer1 == correct_answer1:
+        if abs(user_answer - correct_answer) < 0.1:
             st.session_state.q1_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
@@ -301,18 +300,17 @@ with col1:
     # Create the check button and link it to the function
     check_button1 = st.button("בדיקת תשובה", key="check1_target",
                               disabled=st.session_state.q1_attempts_target >= 10 or st.session_state.q1_show_solution_target,
-                              on_click=check_answer1_target)
+                              on_click=check_answer1_target(user_answer1, correct_answer1))
 
     # Handle displaying solution or error based on attempt outcome
-    correct_answer = 4.76
     if st.session_state.q1_show_solution_target:
-        st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer}%. \n"
+        st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer1}%. \n"
                    "\n"
                    f"**הסבר:** ההסתברות לפגיעה באזור A נקבעת על פי יחס השטחים בין אזור A לכל לוח המטרה.")
     elif st.session_state.q1_attempts_target >= 10:
         st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
                  "\n"
-                 f"התשובה הנכונה היא {correct_answer}%. \n"
+                 f"התשובה הנכונה היא {correct_answer1}%. \n"
                  "\n"
                  f"**הסבר:** ההסתברות לפגיעה באזור A נקבעת על פי יחס השטחים בין אזור A לכל לוח המטרה.")
     elif check_button1 and not st.session_state.q1_show_solution_target:
@@ -333,6 +331,7 @@ with col1:
         step=0.1,
         key="q2_target"
     )
+    correct_answer2 = 42.55
 
     # Display remaining attempts based on current session state
     if st.session_state.q2_show_solution_target:
@@ -345,11 +344,9 @@ with col1:
 
 
     # Create a function to check the answer and update attempts when the button is clicked
-    def check_answer2_target():
-        correct_answer2 = 42.55
-
+    def check_answer2_target(user_answer, correct_answer):
         # First check if the answer is correct
-        if user_answer2 == correct_answer2:
+        if abs(user_answer - correct_answer) < 0.1:
             st.session_state.q2_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
@@ -360,18 +357,17 @@ with col1:
     # Create the check button and link it to the function
     check_button2 = st.button("בדיקת תשובה", key="check2_target",
                               disabled=st.session_state.q2_attempts_target >= 10 or st.session_state.q2_show_solution_target,
-                              on_click=check_answer2_target)
+                              on_click=check_answer2_target(user_answer2, correct_answer2))
 
     # Handle displaying solution or error based on attempt outcome
-    correct_answer = 42.55
     if st.session_state.q2_show_solution_target:
-        st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.2f}%. \n"
+        st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer2:.2f}%. \n"
                    f"\n"
                    f"**הסבר:** ההסתברות לפגיעה באזור B נקבעת על פי יחס השטחים בין אזור B לכל לוח המטרה. השטח של אזור B גדל ברבע מהשטח המקורי של אזור C. חלוקה בין השטח החדש של אזור B לשטח הכולל של לוח המטרה (שנשמר זהה) מניבה את התוצאה הנכונה.")
     elif st.session_state.q2_attempts_target >= 10:
         st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
                  "\n"
-                 f"התשובה הנכונה היא {correct_answer:.2f}%. \n"
+                 f"התשובה הנכונה היא {correct_answer2:.2f}%. \n"
                  "\n"
                  f"**הסבר:** ההסתברות לפגיעה באזור B נקבעת על פי יחס השטחים בין אזור B לכל לוח המטרה. השטח של אזור B גדל ברבע מהשטח המקורי של אזור C. חלוקה בין השטח החדש של אזור B לשטח הכולל של לוח המטרה (שנשמר זהה) מניבה את התוצאה הנכונה.")
     elif check_button2 and not st.session_state.q2_show_solution_target:
@@ -392,6 +388,7 @@ with col1:
         step=0.1,
         key="q3_target"
     )
+    correct_answer3 = 16
 
     # Display remaining attempts based on current session state
     if st.session_state.q3_show_solution_target:
@@ -404,11 +401,9 @@ with col1:
 
 
     # Create a function to check the answer and update attempts when the button is clicked
-    def check_answer3_target():
-        correct_answer3 = 16
-
+    def check_answer3_target(user_answer, correct_answer):
         # First check if the answer is correct
-        if user_answer3 == correct_answer3:
+        if abs(user_answer - correct_answer) < 0.1:
             st.session_state.q3_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
@@ -419,14 +414,13 @@ with col1:
     # Create the check button and link it to the function
     check_button3 = st.button("בדיקת תשובה", key="check3_target",
                               disabled=st.session_state.q3_attempts_target >= 10 or st.session_state.q3_show_solution_target,
-                              on_click=check_answer3_target)
+                              on_click=check_answer3_target(user_answer3, correct_answer3))
 
     # Handle displaying solution or error based on attempt outcome
-    correct_answer = 16
     if st.session_state.q3_show_solution_target:
         col1, col2 = st.columns(2)
         with col1:
-            st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.0f}%. \n"
+            st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer3:.0f}%. \n"
                        "\n"
                        f"**הסבר:** כאשר ידוע שהחץ פגע באזור A או B, מרחב המדגם מצטמצם לאזורים A ו-B בלבד ולכן ההסתברות לפגיעה באזור A משתנה. חלוקה בין שטח אזור A לסכום השטחים של אזור A ו-B (מרחב המדגם החדש) מניבה את התוצאה הנכונה.")
         with col2:
@@ -438,7 +432,7 @@ with col1:
         with col1:
             st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
                      "\n"
-                     f"התשובה הנכונה היא {correct_answer:.0f}%. \n"
+                     f"התשובה הנכונה היא {correct_answer3:.0f}%. \n"
                      "\n"
                      f"**הסבר:** כאשר ידוע שהחץ פגע באזור A או B, מרחב המדגם מצטמצם לאזורים A ו-B בלבד ולכן ההסתברות לפגיעה באזור A משתנה. חלוקה בין שטח אזור A לסכום השטחים של אזור A ו-B (מרחב המדגם החדש) מניבה את התוצאה הנכונה.")
         with col2:
@@ -465,6 +459,7 @@ with col1:
         step=0.1,
         key="q4_target"
     )
+    correct_answer4 = 5.76
 
     # Display remaining attempts based on current session state
     if st.session_state.q4_show_solution_target:
@@ -477,11 +472,9 @@ with col1:
 
 
     # Create a function to check the answer and update attempts when the button is clicked
-    def check_answer4_target():
-        correct_answer4 = 5.76  # (12/50)^2 * 100
-
+    def check_answer4_target(user_answer, correct_answer):
         # First check if the answer is correct
-        if user_answer4 == correct_answer4:
+        if abs(user_answer - correct_answer) < 0.1:
             st.session_state.q4_show_solution_target = True
 
         # Then increment the attempts counter if we haven't reached max attempts
@@ -492,14 +485,13 @@ with col1:
     # Create the check button and link it to the function
     check_button4 = st.button("בדיקת תשובה", key="check4_target",
                               disabled=st.session_state.q4_attempts_target >= 10 or st.session_state.q4_show_solution_target,
-                              on_click=check_answer4_target)
+                              on_click=check_answer4_target(user_answer4, correct_answer4))
 
     # Handle displaying solution or error based on attempt outcome
-    correct_answer = 5.76  # (12/50)^2 * 100
     if st.session_state.q4_show_solution_target:
         col1, col2 = st.columns(2)
         with col1:
-            st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer:.2f}%. \n"
+            st.success(f"כל הכבוד! התשובה הנכונה היא {correct_answer4:.2f}%. \n"
                        "\n"
                        f"**הסבר:** כאשר הריבוע משיק למעגל החיצוני, צלע הריבוע שווה לרדיוס המעגל החיצוני כפול 2√. "
                        f"היחס בין שטח מעגל A לשטח הריבוע הוא ²(12/50). "
@@ -513,7 +505,7 @@ with col1:
         with col1:
             st.error(f"כל הכבוד על הניסיון! בפעם הבאה תצליחו יותר. \n"
                      "\n"
-                     f"התשובה הנכונה היא {correct_answer:.2f}%. \n"
+                     f"התשובה הנכונה היא {correct_answer4:.2f}%. \n"
                      "\n"
                      f"**הסבר:** כאשר הריבוע משיק למעגל החיצוני, צלע הריבוע שווה לרדיוס המעגל החיצוני כפול 2√. "
                      f"היחס בין שטח מעגל A לשטח הריבוע הוא ²(12/50). "
