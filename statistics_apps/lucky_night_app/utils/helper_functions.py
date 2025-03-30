@@ -18,7 +18,7 @@ def setup_page():
 
             /* Style the sidebar */
             section[data-testid="stSidebar"] {
-                background-color: #f0f8ff;  /* תכלת בהיר */
+                background-color: #88a1b9;  /* תכלת בהיר */
                 color: black !important;
             }
 
