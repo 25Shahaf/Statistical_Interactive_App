@@ -16,10 +16,8 @@ def roll_dice():
     dice2 = random.randint(1, 6)
     return dice1, dice2
 
-
 def is_lucky_sum(sum_dice):
     return sum_dice in [6, 9]
-
 
 def get_all_dice_combinations():
     combinations = []
@@ -27,7 +25,6 @@ def get_all_dice_combinations():
         for j in range(1, 7):
             combinations.append((i, j))
     return combinations
-
 
 def create_dice_svg(number):
     """Create SVG representation of a die with given number."""
@@ -51,12 +48,10 @@ def create_dice_svg(number):
     svg += '</svg>'
     return svg
 
-
 def reset_game():
     st.session_state.game_history = []
     st.session_state.score = 0
     st.session_state.roll_count = 0
-
 
 def calculate_roll_distribution(history):
     sums = list(range(2, 13))
@@ -68,7 +63,6 @@ def calculate_roll_distribution(history):
             counts[idx] += 1
 
     return sums, counts
-
 
 def calculate_success_rate(history):
     if not history:
@@ -211,32 +205,7 @@ with col1:
         # Display roll distribution chart
         if st.session_state.game_history:
             # Create two columns for the charts
-            col_hist, col_pie = st.columns(2)
-
-            # Display roll distribution chart
-            with col_hist:
-                # st.markdown("התפלגות התוצאות:")
-                sums, counts = calculate_roll_distribution(st.session_state.game_history)
-
-                fig = go.Figure(data=[
-                    go.Bar(x=[str(x) for x in sums], y=counts)
-                ])
-
-                fig.update_layout(
-                    xaxis_title="סכום",
-                    yaxis_title="מספר הופעות",
-                    title="                                                                           :התפלגות התוצאות",
-                    showlegend=False,
-                    height=500,
-                    yaxis=dict(
-                        dtick=10  # Set y-axis tick interval to 1
-                    ),
-                    xaxis=dict(
-                        dtick=1  # Set x-axis tick interval to 1
-                    )
-                )
-
-                st.plotly_chart(fig, use_container_width=True)
+            col_pie, col_space = st.columns(2)
 
             with col_pie:
                 success_data = calculate_success_rate(st.session_state.game_history)
