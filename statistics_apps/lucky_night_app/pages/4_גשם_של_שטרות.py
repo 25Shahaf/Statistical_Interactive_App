@@ -165,7 +165,7 @@ with col1:
         המכונה מפילה שטרות בקצב ממוצע של 5 שטרות בדקה.
         משך כל משחק הוא דקה אחת, והפרס שלכם הוא השטרות שנופלים בזמן המשחק.
         
-        **חישבו:** כיצד התוחלת והשונות משתנים ככל שמספר המשחקים גדל?
+        **חישבו:** כיצד התוחלת והשונות של מספר השטרות שנפלו משתנים ככל שמספר המשחקים גדל?
 
         </div>
     """, unsafe_allow_html=True)
@@ -231,7 +231,7 @@ with col1:
                 <div style='background-color: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;'>
                 <h4>סטטיסטיקה מצטברת:</h4>
                     <div style='font-size: 1.2em; margin: 10px 0; color: black;'>
-                        📊 ממוצע שטרות: {success_stats['ממוצע']}
+                        📊 תוחלת השטרות: {success_stats['ממוצע']}
                     </div>
                     <div style='font-size: 1.2em; margin: 10px 0; color: black;'>
                     📏 שונות:     {success_stats['שונות']}
@@ -301,12 +301,12 @@ with col1:
     st.markdown(r"""
         <div class='theory-section'>
         <h3>התפלגות פואסון 📊</h3>
-
-        התפלגות פואסון מתארת את מספר האירועים שמתרחשים בפרק זמן קבוע, כאשר האירועים מתרחשים בקצב ממוצע קבוע וכל אירוע הוא בלתי תלוי באירועים האחרים.
+        
+        תהליך פואסון מאפשר את תיאור את ההתפלגות של מספר האירועים שמתרחשים בפרק זמן קבוע, כאשר נתון מהו ממוצע מספר האירועים עבור אותו פרק זמן וכל אירוע הוא בלתי תלוי באירועים האחרים.
         
         משתנה מקרי עם התפלגות פואסון מקבל ערכים לא שליליים ומציין את מספר האירועים ביחידת זמן מתוך זרם אירועים פואסוני עם קצב של $\lambda$ אירועים ליחידת זמן כלשהי.
 
-        $Poisson(\lambda) \sim X $
+        $Poiss(\lambda) \sim X $
         
         $\frac{^{\lambda -}\lambda ^{x}e}{!x} =$ $(x=P(X$
         
@@ -316,13 +316,11 @@ with col1:
         
         <h3>התפלגות מעריכית 📊</h3>
 
-        התפלגות מעריכית מתארת מספר יחידות מידה בין שני מופעים פואסונים. 
+        התפלגות מעריכית מתארת את ה"מרחק" בין שני מופעים בתהליך פואסון. "מרחק" יכול להיות ביחידות שונות כגון זמן, מרחק, שטח וכל מימד בו מתרחש התהליך. 
         
-        התפלגות זאת הינה בעלת תכונת חוסר זכרון ולכן, בהינתן מידע על העבר, משתנה מקרי מעריכי יתפלג כמו משתנה מקרי "חדש".
+        התפלגות זאת הינה בעלת תכונת חוסר זכרון ולכן, בהינתן מידע על העבר, משתנה מקרי מעריכי יתפלג כמו משתנה מקרי "חדש". שימו לב כי רק התפלגות מעריכית והמקרה הבדיד שלה - הסתברות גיאומטרית, בעלות תכונה זו.
         
         $exp(\lambda) \sim X $
-        
-        $\frac{^{\lambda -}\lambda ^{x}e}{!x} =$ $(x\geq P(X$
         
         $    \begin{cases} x < 0 & 0 \\x \geq 0& e^{\lambda x -} + 1 - \end{cases} =$ $(x\geq P(X$
         
