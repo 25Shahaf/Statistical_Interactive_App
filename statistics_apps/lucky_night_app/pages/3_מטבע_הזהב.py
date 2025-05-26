@@ -253,7 +253,7 @@ with col1:
         
         $B(n, q) \sim X$
         
-        $^{n-x}(q-1)^{x}q\\binom{n}{k}=$ $(x=P(X$
+        $^{n-x}(q-1)^{x}q\\binom{n}{x}=$ $(x=P(X$
         
         $nq=$ $E[X]$
         
