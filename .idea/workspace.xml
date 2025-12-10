@@ -5,18 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="501b7ec2-0177-4caf-983f-8925df028571" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/vibration_theory/Home_Page.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vibration_theory/bgu_logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vibration_theory/pages/1_Introduction.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vibration_theory/pages/2_Galerkin_method.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vibration_theory/pages/bgu_logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vibration_theory/requirements.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/vibration_theory/utils/helper_functions.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/stat_app/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stat_app/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stat_app/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stat_app/.idea/material_theme_project_new.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stat_app/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stat_app/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stat_app/.idea/streamlit.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stat_app/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stat_app/main.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stat_app/requirements.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/stat_app/stat-test.py" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,33 +38,37 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.basic_definitions.executor": "Run",
-    "Python.conditional_probability.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.stat-test.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "G:/My Drive/University/M.Sc_ME/Thesis/Literature/LiteratureSummaries",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.basic_definitions.executor&quot;: &quot;Run&quot;,
+    &quot;Python.conditional_probability.executor&quot;: &quot;Run&quot;,
+    &quot;Python.home_page.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.stat-test.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;G:/My Drive/University/M.Sc_ME/streamlit/vibration_theory&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;terminal&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="G:\My Drive\University\M.Sc_ME\streamlit\vibration_theory" />
       <recent name="G:\My Drive\University\M.Sc_ME\streamlit\statistics_app" />
     </key>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.23339.19" />
-        <option value="bundled-python-sdk-0029f7779945-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.23339.19" />
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-PY-251.25410.159" />
+        <option value="bundled-python-sdk-e0ed3721d81e-36ea0e71a18c-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.25410.159" />
       </set>
     </attachedChunks>
   </component>
@@ -87,15 +87,32 @@
       <workItem from="1730369734627" duration="427000" />
       <workItem from="1730370305894" duration="621000" />
       <workItem from="1730966411415" duration="27000" />
+      <workItem from="1765372721083" duration="3367000" />
+      <workItem from="1765376208267" duration="602000" />
+      <workItem from="1765376850758" duration="648000" />
+      <workItem from="1765377573806" duration="12000" />
+      <workItem from="1765377623835" duration="6921000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/streamlit$conditional_probability.coverage" NAME="conditional_probability Coverage Results" MODIFIED="1730125455367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/statistics_app/pages" />
     <SUITE FILE_PATH="coverage/streamlit$main.coverage" NAME="main Coverage Results" MODIFIED="1730369741057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/statistics_app" />
+    <SUITE FILE_PATH="coverage/streamlit$home_page.coverage" NAME="home_page Coverage Results" MODIFIED="1765374745965" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/vibration_theory" />
+    <SUITE FILE_PATH="coverage/streamlit$conditional_probability.coverage" NAME="conditional_probability Coverage Results" MODIFIED="1730125455367" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/statistics_app/pages" />
     <SUITE FILE_PATH="coverage/streamlit$basic_definitions.coverage" NAME="basic_definitions Coverage Results" MODIFIED="1730369319309" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/statistics_app/concepts" />
     <SUITE FILE_PATH="coverage/streamlit$stat_test.coverage" NAME="stat-test Coverage Results" MODIFIED="1730120047494" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/stat_app" />
   </component>
