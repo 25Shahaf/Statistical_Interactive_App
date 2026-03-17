@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="501b7ec2-0177-4caf-983f-8925df028571" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/vibration_theory/Home_Page.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vibration_theory/bgu_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vibration_theory/pages/1_Introduction.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vibration_theory/pages/2_Galerkin_method.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vibration_theory/pages/bgu_logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vibration_theory/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/vibration_theory/utils/helper_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="501b7ec2-0177-4caf-983f-8925df028571" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -92,6 +83,7 @@
       <workItem from="1765376850758" duration="648000" />
       <workItem from="1765377573806" duration="12000" />
       <workItem from="1765377623835" duration="6921000" />
+      <workItem from="1765390472037" duration="29000" />
     </task>
     <servers />
   </component>
